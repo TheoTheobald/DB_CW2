@@ -120,9 +120,6 @@
             color: #8279a7;
             float: bottom;
         }
-        .box .row.footer p.small {
-            display: none;
-        }
         @media screen and (max-width: 1090px) {
             img#logo {
                 display: none;
@@ -145,7 +142,7 @@
             }
         }
     </style>
-    <title>Document</title>
+    <title>Incident Login</title>
 </head>
 <body style="background-color: whitesmoke;">
     <div class="box">
@@ -153,29 +150,34 @@
             <img id="logo" src="nott_police_logo.jpg" alt="Nottingham Police Logo">
             <img class="small" id="logo_tiny" src="nott_police_logo_tiny.jpg" alt="Nottingham Police Logo Tiny">
             <div class="header-right">
-                <a href="#homepage">Home</a>
-                <a href="#nada">Info</a>
-                <a class="active" href="#loginpage">Login</a>
+                <a href="home_page.php">Home</a>
+                <a href="#nada">Admin</a>
+                <a class="active" href="login_page.php">Login</a>
             </div>
         </div>
         <div class="row content">
             <nav>
                 <ul>
-                    <li><a href="logIncident.html">Log new incident</a></li>
-                    <li><a href="searchIncident.html">Search for existing incident</a></li>
-                    <li><a href="ownership.html">Vehicle owner database</a></li>
+                    <li><a href="home_page.php">Log an incident</a></li>
+                    <li><a href="incident_search.php">Search existing incidents</a></li>
+                    <li><a href="ownership.php">Vehicle owner database</a></li>
                 </ul>
             </nav>
       
             <article>
                 <h1>Please enter your login details here:</h1>
-                <form action="/action_page.php" method="post" target="_blank">
+                <form action="//localhost/databasescw2/login.php" method="post">
                     <label for="username">Username:</label><br>
                     <input type="text" id="username" name="username" placeholder="Your username.."><br><br>
                     <label for="password">Password:</label><br>
                     <input type="password" id="password" name="password" placeholder="Your password.."><br>
                     <input class="thick" type="checkbox" onclick="showPass()"> Show Password<br><br>
-                    <input type="submit" value="Submit">
+                    <input type="submit" value="Log in">                  
+
+                    <?php if (isset($_GET['error'])) { ?>
+                    <p class="error"><b><?php echo $_GET['error']; ?><b></p>
+                    <?php } ?>
+
                   </form> 
             </article>
         </div>
