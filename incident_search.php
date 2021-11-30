@@ -2,7 +2,7 @@
 session_start();
 if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
 
-    header("Location: login_page.php");
+    header("Location: login_page.php?error=Please login to access protected areas");
 
 }?>
 <!DOCTYPE html>
@@ -65,6 +65,14 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
         .box .row.content {
             flex: 1 1 auto;
         }
+        .admin {
+            visibility: hidden;
+        }
+        <?php if ($_SESSION['type'] == "2"):?>
+            .admin {
+                visibility: visible;
+            }
+        <?php endif; ?>
         nav {
             float: left;
             width: 330px;
@@ -133,6 +141,12 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
             padding: 2px;
             font-size: 18px;
         }
+        table {
+            background-color: #13003f;
+        }
+        th, tr, td {
+            background-color: whitesmoke;
+        }
         .box .row.footer {
             flex: 0 0 25px;
             background-color: #13003f;
@@ -171,9 +185,9 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
             <img id="logo" src="nott_police_logo.jpg" alt="Nottingham Police Logo">
             <img class="small" id="logo_tiny" src="nott_police_logo_tiny.jpg" alt="Nottingham Police Logo Tiny">
             <div class="header-right">
+                <a class="admin" href="admin_add_user.php">Admin</a>
                 <a class="active" href="incident_search.php">Home</a>
-                <a href="#nada">Admin</a>
-                <a href="login_page.php">Login</a>
+                <a href="logout.php">Logout</a>
             </div>
         </div>
         <div class="row content">
@@ -181,7 +195,9 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
                 <ul>
                     <li><a href="home_page.php">Log an incident</a></li>
                     <li><a href="incident_search.php">Search existing incidents</a></li>
+                    <li><a href="edit_existing_incidents.php">Edit existing incident</a></li>
                     <li><a href="ownership.php">Vehicle owner database</a></li>
+                    <li><a href="password_reset.php">Reset your password</a></li>
                 </ul>
             </nav>
             <article>
@@ -209,7 +225,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
                 include 'db_connection.php';
 
                 $conn = OpenCon();
-                $query = "SELECT person.Person_Name, vehicle.Vehicle_License, offence.Offence_Description, incident.Incident_Date from incident 
+                $query = "SELECT incident.Incident_ID, person.Person_Name, vehicle.Vehicle_License, offence.Offence_Description, incident.Incident_Date from incident 
                 inner join offence on incident.Offence_ID = offence.Offence_ID 
                 inner join person on incident.Person_ID = person.Person_ID 
                 inner join vehicle on incident.Vehicle_ID = vehicle.Vehicle_ID";
@@ -217,6 +233,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
                 ?>
                 <table id="resultsTable">
                     <tr>
+                        <th>Incident ID</th>
                         <th>Full Name</th>
                         <th>Registration Number</th>
                         <th>Offence Committed</th>
@@ -228,6 +245,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
                         <td><?php echo $row1[1];?></td>
                         <td><?php echo $row1[2];?></td>
                         <td><?php echo $row1[3];?></td>
+                        <td><?php echo $row1[4];?></td>
                     </tr>
                     <?php endwhile;?>
                 </table>

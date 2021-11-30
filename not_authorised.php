@@ -1,3 +1,10 @@
+<?php 
+session_start();
+if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
+
+    header("Location: login_page.php");
+
+}?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -61,6 +68,11 @@
         .admin {
             visibility: hidden;
         }
+        <?php if ($_SESSION['type'] == "2"):?>
+            .admin {
+                visibility: visible;
+            }
+        <?php endif; ?>
         nav {
             float: left;
             width: 330px;
@@ -105,15 +117,8 @@
             box-sizing: border-box;
             border-radius: 4px;
             margin: 5px 0px;
-        }
-        article form input.thick {
-            width: 15px;
-            height: 15px;
-        }
-        section::after {
-            content: "";
-            display: table;
-            clear: both;
+            width: 220px;
+            height: 45px;
         }
         .box .row.footer {
             flex: 0 0 25px;
@@ -123,7 +128,7 @@
             color: #8279a7;
             float: bottom;
         }
-        @media screen and (max-width: 1090px) {
+        @media screen and (max-width: 1130px) {
             img#logo {
                 display: none;
             }
@@ -131,9 +136,7 @@
                 visibility: visible;
                 padding: 15px;
             }
-        }
-        @media screen and (max-width: 800px) {
-            nav, article {
+            nav {
                 width: 100%;
                 height: auto;
             }
@@ -145,7 +148,7 @@
             }
         }
     </style>
-    <title>Incident Login</title>
+    <title>Not authorised</title>
 </head>
 <body style="background-color: whitesmoke;">
     <div class="box">
@@ -153,8 +156,9 @@
             <img id="logo" src="nott_police_logo.jpg" alt="Nottingham Police Logo">
             <img class="small" id="logo_tiny" src="nott_police_logo_tiny.jpg" alt="Nottingham Police Logo Tiny">
             <div class="header-right">
-                <a href="home_page.php">Home</a>
-                <a class="active" href="login_page.php">Login</a>
+                <a class="admin" href="admin_add_user.php">Admin</a>
+                <a class="active" href="home_page.php">Home</a>
+                <a href="login_page.php">Login</a>
             </div>
         </div>
         <div class="row content">
@@ -166,22 +170,9 @@
                     <li><a href="ownership.php">Vehicle owner database</a></li>
                 </ul>
             </nav>
-      
             <article>
-                <h1>Please enter your login details here:</h1>
-                <form action="//localhost/databasescw2/login.php" method="post">
-                    <label for="username">Username:</label><br>
-                    <input type="text" id="username" name="username" placeholder="Your username.."><br><br>
-                    <label for="password">Password:</label><br>
-                    <input type="password" id="password" name="password" placeholder="Your password.."><br>
-                    <input class="thick" type="checkbox" onclick="showPass()"> Show Password<br><br>
-                    <input type="submit" value="Log in">                  
-
-                    <?php if (isset($_GET['error'])) { ?>
-                    <p class="error"><b><?php echo $_GET['error']; ?><b></p>
-                    <?php } ?>
-
-                  </form> 
+                <h1>You are not authorised to access this page - please change login, or select a different area of the site.</h1>
+                
             </article>
         </div>
         <div class="row footer">
@@ -190,15 +181,5 @@
             </footer>
         </div>
     </div>
-    <script>
-        function showPass() {
-            var x = document.getElementById("password");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        }
-    </script>
 </body>
 </html>
