@@ -1,10 +1,11 @@
 <?php 
 session_start();
-if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
+if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
 
-    header("Location: login_page.php?error=Please login to access protected areas");
+    header("Location: page_login.php?error=Please login to access protected areas");
 
-}?>
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -177,7 +178,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
             }
         }
     </style>
-    <title>Search existing Incidents</title>
+    <title>Search people</title>
 </head>
 <body style="background-color: whitesmoke;">
     <div class="box">
@@ -185,70 +186,61 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
             <img id="logo" src="nott_police_logo.jpg" alt="Nottingham Police Logo">
             <img class="small" id="logo_tiny" src="nott_police_logo_tiny.jpg" alt="Nottingham Police Logo Tiny">
             <div class="header-right">
-                <a class="admin" href="admin_add_user.php">Admin</a>
-                <a class="active" href="incident_search.php">Home</a>
-                <a href="logout.php">Logout</a>
+                <a class="admin" href="page_admin_user.php">Admin</a>
+                <a class="active" href="page_search_incident.php">Home</a>
+                <a href="script_logout.php">Logout</a>
             </div>
         </div>
         <div class="row content">
             <nav>
                 <ul>
-                    <li><a href="home_page.php">Log an incident</a></li>
-                    <li><a href="incident_search.php">Search existing incidents</a></li>
-                    <li><a href="edit_existing_incidents.php">Edit existing incident</a></li>
-                    <li><a href="ownership.php">Vehicle owner database</a></li>
-                    <li><a href="password_reset.php">Reset your password</a></li>
+                    <li><a href="page_home.php">Log an incident</a></li>
+                    <li><a href="page_search_incident.php">Search existing incidents</a></li>
+                    <li><a href="page_edit_incident.php">Edit existing incident</a></li>
+                    <li><a href="page_people_db.php">People database</a></li>
+                    <li><a href="page_vehicle_db.php">Vehicle database</a></li>
+                    <li><a href="page_password_reset.php">Reset your password</a></li>
                 </ul>
             </nav>
             <article>
-                <h1>Search for an existing Incident:</h1>
-                <form action="/action_page.php" method="post" target="none">
+                <h1>Search for a vehicle:</h1>
+                <form>
                     <div class="grid">
                         <div>
                             <p>
-                                <label for="searchField">Find:</label><br>
+                                <label for="searchField">Registration Plate:</label><br>
                                 <input type="text" id="searchField" onkeyup="serveResults()" name="searchField" placeholder="...">
                             </p>                        
-                        </div>
-                        <div>
-                            <p>
-                                <label for="searchCrit">Search criteria:</label><br>
-                                <select name="searchCrit" id="searchCrit">   
-                                    <option value="fullName">Offendee Name</option>   
-                                    <option value="regNumber">Registration Number</option>            
-                                </select>
-                            </p>   
                         </div>
                     </div>
                 </form>
                 <?php
-                include 'db_connection.php';
+                include 'script_db_connect.php';
 
                 $conn = OpenCon();
-                $query = "SELECT incident.Incident_ID, person.Person_Name, vehicle.Vehicle_License, offence.Offence_Description, incident.Incident_Date from incident 
-                inner join offence on incident.Offence_ID = offence.Offence_ID 
-                inner join person on incident.Person_ID = person.Person_ID 
-                inner join vehicle on incident.Vehicle_ID = vehicle.Vehicle_ID";
-                $result = mysqli_query($conn, $query)
+                $query = "SELECT Vehicle_License, Vehicle_Type, Vehicle_Colour, Person.Person_Name from Vehicle 
+                left join Ownership on Vehicle.Vehicle_ID = Ownership.Vehicle_ID
+                left join Person on Ownership.Person_ID = Person.Person_ID";
+                $result = mysqli_query($conn, $query);
                 ?>
-                <table id="resultsTable">
-                    <tr>
-                        <th>Incident ID</th>
-                        <th>Full Name</th>
-                        <th>Registration Number</th>
-                        <th>Offence Committed</th>
-                        <th>Date of incident</th>
-                    </tr>
-                    <?php while ($row1 = mysqli_fetch_array($result)):;?>
-                    <tr>
-                        <td><?php echo $row1[0];?></td>
-                        <td><?php echo $row1[1];?></td>
-                        <td><?php echo $row1[2];?></td>
-                        <td><?php echo $row1[3];?></td>
-                        <td><?php echo $row1[4];?></td>
-                    </tr>
-                    <?php endwhile;?>
-                </table>
+                <div class="overflow">
+                    <table id="resultsTable">
+                        <tr>
+                            <th>Registration Plate</th>
+                            <th>Vehicle Type</th>
+                            <th>Vehicle Colour</th>
+                            <th>Owner Name</th>
+                        </tr>
+                        <?php while ($row1 = mysqli_fetch_array($result)):;?>
+                        <tr>
+                            <td><?php echo $row1[0];?></td>
+                            <td><?php echo $row1[1];?></td>
+                            <td><?php echo $row1[2];?></td>
+                            <td><?php echo $row1[3];?></td>
+                        </tr>
+                        <?php endwhile;?>
+                    </table>
+                </div>
             </article>
         </div>
         <div class="row footer">
@@ -257,8 +249,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
             </footer>
         </div>
     </div>
-
-<script>
+    <script>
 function serveResults() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("searchField");
@@ -266,14 +257,8 @@ function serveResults() {
   table = document.getElementById("resultsTable");
   tr = table.getElementsByTagName("tr");
   searchCrit = document.getElementById("searchCrit")
-  if (searchCrit.value == "fullName") {
-      column = 0;
-  }
-  if (searchCrit.value == "regNumber") {
-      column = 1;
-  }
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[column];
+    td = tr[i].getElementsByTagName("td")[0];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {

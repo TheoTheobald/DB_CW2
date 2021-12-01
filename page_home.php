@@ -1,8 +1,8 @@
 <?php 
 session_start();
-if (!isset($_SESSION['id']) && !isset($_SESSION['username']) && $_SESSION['type'] === 1) {
+if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
 
-    header("Location: login_page.php?error=Please login to access protected areas");
+    header("Location: page_login.php?error=Please login to access protected areas");
 
 }?>
 <!DOCTYPE html>
@@ -123,7 +123,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username']) && $_SESSION['type'
         .grid {
             display: grid;
             grid-gap: 12px;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(4, 1fr);
         }
         .grid div p select {
             width: 220px;
@@ -135,10 +135,6 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username']) && $_SESSION['type'
             border-radius: 4px;
             margin: 5px 0px;   
         }
-        .thick {
-            width: 15px;
-            height: 15px;
-        }
         .hidden {
             visibility: hidden;
         }
@@ -147,6 +143,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username']) && $_SESSION['type'
                 visibility: visible;
             }
         <?php endif; ?>
+
         textarea {
             resize: none;
             border-radius: 4px;
@@ -180,7 +177,7 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username']) && $_SESSION['type'
             }
         }
     </style>
-    <title>Create new Officer user</title>
+    <title>Log an Incident</title>
 </head>
 <body style="background-color: whitesmoke;">
     <div class="box">
@@ -188,66 +185,98 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username']) && $_SESSION['type'
             <img id="logo" src="nott_police_logo.jpg" alt="Nottingham Police Logo">
             <img class="small" id="logo_tiny" src="nott_police_logo_tiny.jpg" alt="Nottingham Police Logo Tiny">
             <div class="header-right">
-                <a class="active" href="admin_add_user.php">Admin</a>
-                <a href="home_page.php">Home</a>
-                <a href="login_page.php">Logout</a>
+                <a class="admin" href="page_admin_user.php">Admin</a>
+                <a class="active" href="page_home.php">Home</a>                
+                <a href="script_logout.php">Logout</a>
             </div>
         </div>
         <div class="row content">
             <nav>
                 <ul>
-                    <li><a href="home_page.php">Log an incident</a></li>
-                    <li><a href="incident_search.php">Search existing incidents</a></li>
-                    <li><a href="edit_existing_incidents.php">Edit existing incident</a></li>
-                    <li><a href="ownership.php">Vehicle owner database</a></li>
-                    <li><a href="password_reset.php">Reset your password</a></li>
+                    <li><a href="page_home.php">Log an incident</a></li>
+                    <li><a href="page_search_incident.php">Search existing incidents</a></li>
+                    <li><a href="page_edit_incident.php">Edit existing incident</a></li>
+                    <li><a href="page_people_db.php">People database</a></li>
+                    <li><a href="page_vehicle_db.php">Vehicle database</a></li>
+                    <li><a href="page_password_reset.php">Reset your password</a></li>
                 </ul>
             </nav>
             <article>
-                <h1>Create a new Officer user:</h1>
-                <form action="//localhost/databasescw2/add_officer.php" method="post">
+                <h1>Log a new Incident here:</h1>
+                <form action="//localhost/databasescw2/script_incident.php" method="post">
                     <div class="grid">
                         <div>
                             <p>
-                                <label for="officerName">Officer Name:</label><br>
-                                <input type="text" id="officerName" name="officerName" placeholder="Bill Boggs">
+                                <label for="offName">Offendee Name:</label><br>
+                                <input type="text" id="offName" name="offName" placeholder="John Doe">
                             </p>                        
                         </div>
                         <div>
                             <p>
-                                <label for="dateOfBirth">Date of Birth:</label><br>
-                                <input type="datetime-local" id="date" name="date" width="120px">
+                                <label for="carReg">Car Registration:</label><br>
+                                <input type="text" id="carReg" name="carReg" placeholder="AE15 K7Y">
                             </p>
                         </div>
                         <div>
                             <p>
-                                <label for="userType">User type:</label><br>
-                                <select name="userType" id="userType">   
-                                    <option value="1">Normal user</option>   
-                                    <option value="2">Administrator</option>            
+                                <label for="offence">Offence:</label><br>
+                                <select name="offence" id="offence">   
+                                    <option value="1">Speeding</option>   
+                                    <option value="2">Motorway Speeding</option>  
+                                    <option value="3">Seat belt offence</option>  
+                                    <option value="4">Illegal parking</option>  
+                                    <option value="5">Drink driving</option>  
+                                    <option value="6">Unlicensed driving</option>  
+                                    <option value="7">Traffic light offence</option>  
+                                    <option value="8">Pavement cycling</option>  
+                                    <option value="9">Failure to control vehicle</option>  
+                                    <option value="10">Dangerous driving</option>  
+                                    <option value="11">Careless driving</option>  
+                                    <option value="12">Dangerous cycling</option>           
                                 </select>
                             </p>                            
                         </div>
+                        <div class="hidden">
+                            <p>
+                                <label for="vehicleType">Vehicle Type:</label><br>
+                                <input type="text" id="vehicleType" name="vehicleType">
+                            </p>
+                        </div>
                         <div>
                             <p>
-                                <label for="username">Username:</label><br>
-                                <input type="text" id="username" name="username">
+                                <label for="licenseNumber">License Number:</label><br>
+                                <input type="text" id="licenseNumber" name="licenseNumber">
                             </p>                            
                         </div>
                         <div>
                             <p>
-                                <label for="password">Password:</label><br>
-                                <input type="password" id="password" name="password"><br>
-                                <input class="thick" type="checkbox" onclick="showPass()"> Show Password
+                                <label for="points">Points Awarded:</label><br>
+                                <input type="number" id="points" name="points" value="0" max="11">
                             </p>                            
+                        </div>
+                        <div>
+                            <p>
+                                <label for="date">Date:</label><br>
+                                <input type="datetime-local" id="date" name="date" width="120px">
+                            </p>                            
+                        </div>
+                        <div class="hidden">
+                            <p>
+                                <label for="vehicleColour">Vehicle Colour:</label><br>
+                                <input type="text" id="vehicleColour" name="vehicleColour">
+                            </p>
                         </div>
                     </div>
+                    <p>
+                        <label for="">Officer Statement:</label><br>
+                        <textarea class="noResize" id="statement" name="statement" cols="85" rows="12"></textarea>
+                    </p>
                     <div>
                         <?php if (isset($_GET['error'])) { ?>
                         <p class="error"><b><?php echo $_GET['error']; ?><b></p>
                         <?php } ?> 
                         <p>
-                            <input type="submit" id="logInc" value="Create User">       
+                            <input type="submit" id="logInc" value="Log Incident">       
                         </p>          
                     </div>
                 </form> 
@@ -259,15 +288,5 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username']) && $_SESSION['type'
             </footer>
         </div>
     </div>
-    <script>
-        function showPass() {
-            var x = document.getElementById("password");
-            if (x.type === "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        }
-    </script>
 </body>
 </html>

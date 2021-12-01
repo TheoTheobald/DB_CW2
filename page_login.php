@@ -106,7 +106,7 @@
             border-radius: 4px;
             margin: 5px 0px;
         }
-        article form input.thick {
+        .thick {
             width: 15px;
             height: 15px;
         }
@@ -153,23 +153,24 @@
             <img id="logo" src="nott_police_logo.jpg" alt="Nottingham Police Logo">
             <img class="small" id="logo_tiny" src="nott_police_logo_tiny.jpg" alt="Nottingham Police Logo Tiny">
             <div class="header-right">
-                <a href="home_page.php">Home</a>
-                <a class="active" href="login_page.php">Login</a>
+                <a href="page_home.php">Home</a>
+                <a class="active" href="page_login.php">Login</a>
             </div>
         </div>
         <div class="row content">
             <nav>
                 <ul>
-                    <li><a href="home_page.php">Log an incident</a></li>
-                    <li><a href="incident_search.php">Search existing incidents</a></li>
-                    <li><a href="edit_existing_incidents.php">Edit existing incident</a></li>
-                    <li><a href="ownership.php">Vehicle owner database</a></li>
+                    <li><a href="page_login.php">Log an incident</a></li>
+                    <li><a href="page_search_incident.php">Search existing incidents</a></li>
+                    <li><a href="page_edit_incident.php">Edit existing incident</a></li>
+                    <li><a href="page_people_db.php">People database</a></li>
+                    <li><a href="page_vehicle_db.php">Vehicle database</a></li>
                 </ul>
             </nav>
       
             <article>
                 <h1>Please enter your login details here:</h1>
-                <form action="//localhost/databasescw2/login.php" method="post">
+                <form action="//localhost/databasescw2/script_login.php" method="post">
                     <label for="username">Username:</label><br>
                     <input type="text" id="username" name="username" placeholder="Your username.."><br><br>
                     <label for="password">Password:</label><br>
@@ -181,7 +182,7 @@
                     <p class="error"><b><?php echo $_GET['error']; ?><b></p>
                     <?php } ?>
 
-                  </form> 
+                </form> 
             </article>
         </div>
         <div class="row footer">

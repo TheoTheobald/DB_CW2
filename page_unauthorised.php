@@ -1,8 +1,8 @@
 <?php 
 session_start();
-if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
+if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
 
-    header("Location: login_page.php");
+    header("Location: page_login.php");
 
 }?>
 <!DOCTYPE html>
@@ -156,18 +156,20 @@ if (!isset($_SESSION['id']) && !isset($_SESSION['username'])) {
             <img id="logo" src="nott_police_logo.jpg" alt="Nottingham Police Logo">
             <img class="small" id="logo_tiny" src="nott_police_logo_tiny.jpg" alt="Nottingham Police Logo Tiny">
             <div class="header-right">
-                <a class="admin" href="admin_add_user.php">Admin</a>
-                <a class="active" href="home_page.php">Home</a>
-                <a href="login_page.php">Login</a>
+                <a class="admin" href="page_admin_user.php">Admin</a>
+                <a class="active" href="page_home.php">Home</a>
+                <a href="page_login.php">Login</a>
             </div>
         </div>
         <div class="row content">
             <nav>
                 <ul>
-                    <li><a href="home_page.php">Log an incident</a></li>
-                    <li><a href="incident_search.php">Search existing incidents</a></li>
-                    <li><a href="edit_existing_incidents.php">Edit existing incident</a></li>
-                    <li><a href="ownership.php">Vehicle owner database</a></li>
+                    <li><a href="page_home.php">Log an incident</a></li>
+                    <li><a href="page_search_incident.php">Search existing incidents</a></li>
+                    <li><a href="page_edit_incident.php">Edit existing incident</a></li>
+                    <li><a href="page_people_db.php">People database</a></li>
+                    <li><a href="page_vehicle_db.php">Vehicle database</a></li>
+                    <li><a href="page_password_reset.php">Reset your password</a></li>
                 </ul>
             </nav>
             <article>
