@@ -6,7 +6,7 @@
         function validate($data){
            $data = trim($data);
            $data = stripslashes($data);
-           $data = htmlspecialchars($data); // new page to edit existing statements must be added - admin must add fines later
+           $data = htmlspecialchars($data);
            return $data;
         }
         $conn = OpenCon();
@@ -40,6 +40,7 @@
                 }else{
                     $createCar = "INSERT into Vehicle (Vehicle_License, Vehicle_Type, Vehicle_Colour) values ('$carReg', '$vehicleType', '$vehicleColour')";
                     mysqli_query($conn, $createCar);
+                    $_SESSION['newCar'] = "no";
                 }
             }
             if (mysqli_num_rows($personExists) === 0){
@@ -71,7 +72,6 @@
 
             if (mysqli_query($conn, $recordIncident)){
                 header("Location: page_home.php?error=Incident recorded");
-                $_SESSION['newCar'] = "no";
                 CloseCon();
                 exit();
             }

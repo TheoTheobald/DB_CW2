@@ -27,7 +27,7 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username']) || $_SESSION['type'
             border: 0px;
         }
         .box .row.header {
-            flex: 0 1 200px;
+            flex: 0 1 180px;
             background-color: #13003f;
         }       
         .header a {
@@ -142,16 +142,6 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username']) || $_SESSION['type'
         .hidden {
             visibility: hidden;
         }
-        <?php if ($_SESSION['newCar'] == "yes"):?>
-            .hidden {
-                visibility: visible;
-            }
-        <?php endif; ?>
-        textarea {
-            resize: none;
-            border-radius: 4px;
-            padding: 8px 8px;
-        }
         .box .row.footer {
             flex: 0 0 25px;
             background-color: #13003f;
@@ -201,6 +191,7 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username']) || $_SESSION['type'
                     <li><a href="page_edit_incident.php">Edit existing incident</a></li>
                     <li><a href="page_people_db.php">People database</a></li>
                     <li><a href="page_vehicle_db.php">Vehicle database</a></li>
+                    <li><a href="page_add_vehicle.php">Register a vehicle</a></li>
                     <li><a href="page_password_reset.php">Reset your password</a></li>
                 </ul>
             </nav>

@@ -27,7 +27,7 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
             border: 0px;
         }
         .box .row.header {
-            flex: 0 1 200px;
+            flex: 0 1 180px;
             background-color: #13003f;
         }       
         .header a {
@@ -169,6 +169,7 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
                     <li><a href="page_edit_incident.php">Edit existing incident</a></li>
                     <li><a href="page_people_db.php">People database</a></li>
                     <li><a href="page_vehicle_db.php">Vehicle database</a></li>
+                    <li><a href="page_add_vehicle.php">Register a vehicle</a></li>
                     <li><a href="page_password_reset.php">Reset your password</a></li>
                 </ul>
             </nav>
