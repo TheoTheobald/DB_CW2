@@ -4,18 +4,15 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
 
     header("Location: page_login.php?error=Please login to access protected areas");
 
-} if (!isset($_SESSION['offNameH'])) {
-    $_SESSION['offNameH'] = NULL;
-} if (!isset($_SESSION['carRegH'])) {
-    $_SESSION['carRegH'] = NULL;
-} if (!isset($_SESSION['licenseNumberH'])) {
-    $_SESSION['licenseNumberH'] = NULL;
-} if (!isset($_SESSION['pointsH'])) {
-    $_SESSION['pointsH'] = NULL;
-} if (!isset($_SESSION['dateH'])) {
-    $_SESSION['dateH'] = NULL;
-} if (!isset($_SESSION['statementH'])) {
-    $_SESSION['statementH'] = NULL;
+}
+if (!isset($_SESSION['nameP'])) {
+    $_SESSION['nameP'] = NULL;
+} if (!isset($_SESSION['licenseNumberP'])) {
+    $_SESSION['licenseNumberP'] = NULL;
+} if (!isset($_SESSION['dobP'])) {
+    $_SESSION['dobP'] = NULL;
+} if (!isset($_SESSION['addressP'])) {
+    $_SESSION['addressP'] = NULL;
 }?>
 <!DOCTYPE html>
 <html lang="en">
@@ -55,7 +52,7 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
             }
         }
     </style>
-    <title>Log an Incident</title>
+    <title>Edit existing Person</title>
 </head>
 <body style="background-color: whitesmoke;">
     <div class="box">
@@ -82,69 +79,54 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
                 </ul>
             </nav>
             <article>
-                <h1>Log a new Incident here:</h1>
-                <form action="//localhost/databasescw2/script_incident.php" method="post">
+                <h1>Edit an existing Person here:</h1>
+                <form action="//localhost/databasescw2/script_fetch_person.php" method="post">
                     <div class="grid">
                         <div>
                             <p>
-                                <label for="offName">Offendee Name:</label><br>
-                                <input type="text" id="offName" name="offName" placeholder="John Doe" value="<?php echo htmlspecialchars($_SESSION['offNameH'])?>">
-                            </p>                        
-                        </div>
-                        <div>
-                            <p>
-                                <label for="carReg">Vehicle Registration:</label><br>
-                                <input type="text" id="carReg" name="carReg" placeholder="AE15 K7Y" value="<?php echo htmlspecialchars($_SESSION['carRegH'])?>">
+                                <label for="personId">Person ID:</label><br>
+                                <input type="number" id="personId" name="personId">
                             </p>
                         </div>
                         <div>
                             <p>
-                                <label for="offence">Offence:</label><br>
-                                <select name="offence" id="offence">   
-                                    <option value="1">Speeding</option>   
-                                    <option value="2">Motorway Speeding</option>  
-                                    <option value="3">Seat belt offence</option>  
-                                    <option value="4">Illegal parking</option>  
-                                    <option value="5">Drink driving</option>  
-                                    <option value="6">Unlicensed driving</option>  
-                                    <option value="7">Traffic light offence</option>  
-                                    <option value="8">Pavement cycling</option>  
-                                    <option value="9">Failure to control vehicle</option>  
-                                    <option value="10">Dangerous driving</option>  
-                                    <option value="11">Careless driving</option>  
-                                    <option value="12">Dangerous cycling</option>           
-                                </select>
-                            </p>                            
+                                <br>
+                                <input type="submit" id="fetch" value="Fetch Person">  
+                            </p>
+                        </div>
+                    </div>
+                </form>
+                <form action="//localhost/databasescw2/script_edit_person.php" method="post">
+                    <div class="grid">
+                        <div>
+                            <p>
+                                <label for="name">Person Name:</label><br>
+                                <input type="text" id="name" name="name" readonly value="<?php echo htmlspecialchars($_SESSION['nameP']);?>">
+                            </p>                        
                         </div>
                         <div>
                             <p>
                                 <label for="licenseNumber">License Number:</label><br>
-                                <input type="text" id="licenseNumber" name="licenseNumber" placeholder="DOEJO27278320423" value="<?php echo htmlspecialchars($_SESSION['licenseNumberH'])?>">
+                                <input type="text" id="licenseNumber" name="licenseNumber" value="<?php echo htmlspecialchars($_SESSION['licenseNumberP']);?>">
                             </p>                            
                         </div>
-                        <div>
+                        <div class="admin">
                             <p>
-                                <label for="points">Points Awarded:</label><br>
-                                <input type="number" id="points" name="points" value="0" max="11" value="<?php echo htmlspecialchars($_SESSION['pointsH'])?>">
-                            </p>                            
-                        </div>
-                        <div>
-                            <p>
-                                <label for="date">Date:</label><br>
-                                <input type="datetime-local" id="date" name="date" width="120px" value="<?php echo htmlspecialchars($_SESSION['dateH'])?>">
+                                <label for="dob">Date of Birth:</label><br>
+                                <input type="date" id="dob" name="dob" value=<?php echo htmlspecialchars($_SESSION['dobP']);?>>
                             </p>                            
                         </div>
                     </div>
                     <p>
-                        <label for="">Officer Statement:</label><br>
-                        <textarea class="noResize" id="statement" name="statement" placeholder="Spat in my cereal" cols="85" rows="12"><?php echo htmlspecialchars($_SESSION['statementH'])?></textarea>
+                        <label for="">Person Address:</label><br>
+                        <textarea id="address" name="address" cols="85" rows="12"><?php echo htmlspecialchars($_SESSION['addressP']);?></textarea>
                     </p>
                     <div>
                         <?php if (isset($_GET['error'])) { ?>
                         <p class="error"><b><?php echo $_GET['error']; ?><b></p>
                         <?php } ?> 
                         <p>
-                            <input type="submit" id="logInc" value="Log Incident">       
+                            <input type="submit" id="commitChanges" value="Commit Changes">       
                         </p>          
                     </div>
                 </form> 

@@ -2,28 +2,49 @@
     session_start();
     include "script_db_connect.php";
     if (isset($_POST['offName']) && isset($_POST['carReg']) && isset($_POST['offence']) && isset($_POST['licenseNumber'])  && isset($_POST['points']) && isset($_POST['date'])
-     && isset($_POST['statement']) && isset($_POST['vehicleType'])  && isset($_POST['vehicleColour'])){
+     && isset($_POST['statement'])){
         function validate($data){
            $data = trim($data);
            $data = stripslashes($data);
            $data = htmlspecialchars($data);
+           $data = str_replace('\'', '', $data);
            return $data;
         }
         $conn = OpenCon();
         $offName = validate($_POST['offName']);
+        $_SESSION['offNameH'] = $offName;
         $carReg = validate($_POST['carReg']);
+        $_SESSION['carRegH'] = $carReg;
         $offence = validate($_POST['offence']);
         $licenseNumber = validate($_POST['licenseNumber']);
+        $_SESSION['licenseNumberH'] = $licenseNumber;
         $points = validate($_POST['points']);
+        $_SESSION['pointsH'] = $points;
         $date = validate($_POST['date']);
+        $_SESSION['dateH'] = $date;
         $statement = validate($_POST['statement']);
-        $vehicleType = validate($_POST['vehicleType']);
-        $vehicleColour = validate($_POST['vehicleColour']);
+        $_SESSION['statementH'] = $statement;
 
         $checkPerson = "SELECT * from Person where Person_Name = '$offName' and Person_License_No = '$licenseNumber'";
         $checkCar = "SELECT * from Vehicle where Vehicle_License = '$carReg'";
 
         if (empty($offName) || empty($carReg) || empty($offence) || empty($licenseNumber) || empty($date) || empty($statement)){
+            if ($offence == 8 || $offence == 12){
+                $_SESSION['offNameC'] = $_SESSION['offNameH'];
+                $_SESSION['licenseNumberC'] = $_SESSION['licenseNumberH'];
+                $_SESSION['pointsC'] = $_SESSION['pointsH'];
+                $_SESSION['dateC'] = $_SESSION['dateH'];
+                $_SESSION['statementC'] = $_SESSION['statementH'];
+                $_SESSION['offNameH'] = NULL;
+                $_SESSION['carRegH'] = NULL;
+                $_SESSION['licenseNumberH'] = NULL;
+                $_SESSION['pointsH'] = NULL;
+                $_SESSION['dateH'] = NULL;
+                $_SESSION['statementH'] = NULL;
+                header("Location: page_cyclist.php?error=Please fill out all fields");
+                CloseCon($conn);
+                exit();
+            }
             header("Location: page_home.php?error=Please fill out all fields");
             CloseCon($conn);
             exit();
@@ -32,16 +53,12 @@
             $carExists = mysqli_query($conn, $checkCar);
 
             if (mysqli_num_rows($carExists) === 0){
-                if(empty($vehicleType) || empty($vehicleColour)){
-                    $_SESSION['newCar'] = "yes";
-                    header("Location: page_home.php?error=Car not known - please fill out all new fields");
-                    CloseCon();
-                    exit();
-                }else{
-                    $createCar = "INSERT into Vehicle (Vehicle_License, Vehicle_Type, Vehicle_Colour) values ('$carReg', '$vehicleType', '$vehicleColour')";
-                    mysqli_query($conn, $createCar);
-                    $_SESSION['newCar'] = "no";
-                }
+                $_SESSION['carRegV'] = $carReg;
+                $_SESSION['licenseNumberV'] = $licenseNumber;
+                $_SESSION['nameV'] = $offName;
+                header("Location: page_add_vehicle.php?error=Vehicle not known, please register before recording incident");
+                CloseCon();
+                exit();
             }
             if (mysqli_num_rows($personExists) === 0){
                 $createPerson = "INSERT into Person (Person_Name, Person_License_No) values ('$offName', '$licenseNumber')";
@@ -71,6 +88,12 @@
              values ('{$_SESSION['id']}', '$personId', '$carId', '$offence', '$points', '$date', '$statement')";
 
             if (mysqli_query($conn, $recordIncident)){
+                $_SESSION['offNameH'] = NULL;
+                $_SESSION['carRegH'] = NULL;
+                $_SESSION['licenseNumberH'] = NULL;
+                $_SESSION['pointsH'] = NULL;
+                $_SESSION['dateH'] = NULL;
+                $_SESSION['statementH'] = NULL;
                 header("Location: page_home.php?error=Incident recorded");
                 CloseCon();
                 exit();

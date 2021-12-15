@@ -5,6 +5,7 @@ if (isset($_POST['points']) && isset($_POST['fine']) && isset($_POST['statement'
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
+        $data = str_replace('\'', '', $data);
         return $data;
     }
     if (empty($_POST['statement'])) {
@@ -20,10 +21,10 @@ if (isset($_POST['points']) && isset($_POST['fine']) && isset($_POST['statement'
 
         if(mysqli_query($conn, $query)){
             $_SESSION['incidentId'] = NULL;
-            $_SESSION['offName'] = NULL;
-            $_SESSION['points'] = NULL;
-            $_SESSION['fine'] = NULL;
-            $_SESSION['statement'] = NULL;
+            $_SESSION['offNameI'] = NULL;
+            $_SESSION['pointsI'] = NULL;
+            $_SESSION['fineI'] = NULL;
+            $_SESSION['statementI'] = NULL;
             header("Location: page_edit_incident.php?error=Incident changes committed");
             CloseCon();
             exit();
