@@ -60,26 +60,29 @@
                 CloseCon();
                 exit();
             }
-            if (mysqli_num_rows($personExists) === 0){
+            if (mysqli_num_rows($personExists) === 0) {
                 $createPerson = "INSERT into Person (Person_Name, Person_License_No) values ('$offName', '$licenseNumber')";
                 mysqli_query($conn, $createPerson);
             }
-            $getPersonId = "SELECT Person_ID from Person where Person_Name = '$offName' and Person_License_No = '$licenseNumber'";
+            $getPersonData = "SELECT Person_ID, Person_Points from Person where Person_Name = '$offName' and Person_License_No = '$licenseNumber'";
             $getCarId = "SELECT Vehicle_ID from Vehicle where Vehicle_License = '$carReg'";
 
-            $personIdResult = mysqli_query($conn, $getPersonId);
+            $personDataResult = mysqli_query($conn, $getPersonData);
             $carIdResult = mysqli_query($conn, $getCarId);
 
-            $personRow = mysqli_fetch_assoc($personIdResult);
+            $personRow = mysqli_fetch_assoc($personDataResult);
             $carRow = mysqli_fetch_assoc($carIdResult);
             
             $personId = $personRow['Person_ID'];
+            $personPoints = $personRow['Person_Points'];
             $carId = $carRow['Vehicle_ID'];
+
+            $newPoints = $personPoints + $points;
 
             $checkOwnership = "SELECT * from Ownership where Person_ID = '$personId' and Vehicle_ID = '$carId'";
             $ownershipResult = mysqli_query($conn, $checkOwnership);
 
-            if (mysqli_num_rows($ownershipResult) === 0){
+            if (mysqli_num_rows($ownershipResult) === 0) {
                 $createOwnership = "INSERT into Ownership (Person_ID, Vehicle_ID) values ('$personId', '$carId')";
                 mysqli_query($conn, $createOwnership);
             }
@@ -87,18 +90,37 @@
             $recordIncident = "INSERT into Incident (Officer_ID, Person_ID, Vehicle_ID, Offence_ID, Incident_Points_Awarded, Incident_Date, Incident_Statement)
              values ('{$_SESSION['id']}', '$personId', '$carId', '$offence', '$points', '$date', '$statement')";
 
+<<<<<<< Updated upstream
             if (mysqli_query($conn, $recordIncident)){
+=======
+            $updatePoints  = "UPDATE Person set Person_Points = '$newPoints' where Person_ID = '$personId'";
+
+            if (mysqli_query($conn, $recordIncident)) {
+>>>>>>> Stashed changes
                 $_SESSION['offNameH'] = NULL;
                 $_SESSION['carRegH'] = NULL;
                 $_SESSION['licenseNumberH'] = NULL;
                 $_SESSION['pointsH'] = NULL;
                 $_SESSION['dateH'] = NULL;
                 $_SESSION['statementH'] = NULL;
+<<<<<<< Updated upstream
                 header("Location: page_home.php?error=Incident recorded");
                 CloseCon();
                 exit();
+=======
+
+                if (mysqli_query($conn, $updatePoints)) {
+                    header("Location: page_home.php?error=Incident recorded successfully");
+                    CloseCon();
+                    exit();
+                }else{
+                    header("Location: page_home.php?error=Error updating offendee points");
+                    CloseCon();
+                    exit();
+                }
+>>>>>>> Stashed changes
             }
-            header("Location: page_home.php?error=Error committing to database");
+            header("Location: page_home.php?error=Error recording incident");
             CloseCon();
             exit();
         }

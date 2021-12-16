@@ -91,7 +91,7 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
                 include 'script_db_connect.php';
 
                 $conn = OpenCon();
-                $query = "SELECT incident.Incident_ID, person.Person_Name, vehicle.Vehicle_License, offence.Offence_Description, incident.Incident_Date from incident 
+                $query = "SELECT incident.Incident_ID, person.Person_Name, vehicle.Vehicle_License, offence.Offence_Description, Incident_Points_Awarded, Incident_Fine_Amount, incident.Incident_Date from incident 
                 inner join offence on incident.Offence_ID = offence.Offence_ID 
                 inner join person on incident.Person_ID = person.Person_ID 
                 inner join vehicle on incident.Vehicle_ID = vehicle.Vehicle_ID";
@@ -99,10 +99,12 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
                 ?>
                 <table id="resultsTable">
                     <tr>
-                        <th>Incident ID</th>
+                        <th>ID</th>
                         <th>Full Name</th>
-                        <th>Registration Number</th>
+                        <th>Registration</th>
                         <th>Offence Committed</th>
+                        <th>Points</th>
+                        <th>Fine</th>
                         <th>Date of incident</th>
                     </tr>
                     <?php while ($row1 = mysqli_fetch_array($result)):;?>
@@ -112,6 +114,8 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
                         <td><?php echo $row1[2];?></td>
                         <td><?php echo $row1[3];?></td>
                         <td><?php echo $row1[4];?></td>
+                        <td><?php echo $row1[5];?></td>
+                        <td><?php echo $row1[6];?></td>
                     </tr>
                     <?php endwhile;?>
                 </table>
