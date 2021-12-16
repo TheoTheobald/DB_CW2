@@ -90,15 +90,24 @@
             $recordIncident = "INSERT into Incident (Officer_ID, Person_ID, Vehicle_ID, Offence_ID, Incident_Points_Awarded, Incident_Date, Incident_Statement)
              values ('{$_SESSION['id']}', '$personId', '$carId', '$offence', '$points', '$date', '$statement')";
 
+<<<<<<< Updated upstream
+            if (mysqli_query($conn, $recordIncident)){
+=======
             $updatePoints  = "UPDATE Person set Person_Points = '$newPoints' where Person_ID = '$personId'";
 
             if (mysqli_query($conn, $recordIncident)) {
+>>>>>>> Stashed changes
                 $_SESSION['offNameH'] = NULL;
                 $_SESSION['carRegH'] = NULL;
                 $_SESSION['licenseNumberH'] = NULL;
                 $_SESSION['pointsH'] = NULL;
                 $_SESSION['dateH'] = NULL;
                 $_SESSION['statementH'] = NULL;
+<<<<<<< Updated upstream
+                header("Location: page_home.php?error=Incident recorded");
+                CloseCon();
+                exit();
+=======
 
                 if (mysqli_query($conn, $updatePoints)) {
                     header("Location: page_home.php?error=Incident recorded successfully");
@@ -109,6 +118,7 @@
                     CloseCon();
                     exit();
                 }
+>>>>>>> Stashed changes
             }
             header("Location: page_home.php?error=Error recording incident");
             CloseCon();

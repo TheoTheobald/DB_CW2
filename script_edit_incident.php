@@ -37,6 +37,11 @@ if (isset($_POST['points']) && isset($_POST['fine']) && isset($_POST['statement'
             $_SESSION['pointsI'] = NULL;
             $_SESSION['fineI'] = NULL;
             $_SESSION['statementI'] = NULL;
+<<<<<<< Updated upstream
+            header("Location: page_edit_incident.php?error=Incident changes committed");
+            CloseCon();
+            exit();
+=======
 
             if(mysqli_query($conn, $updatePoints)) {
                 $_SESSION['pointsOLD'] = NULL;
@@ -49,6 +54,7 @@ if (isset($_POST['points']) && isset($_POST['fine']) && isset($_POST['statement'
                 CloseCon();
                 exit();
             }
+>>>>>>> Stashed changes
         }else{
             header("Location: page_edit_incident.php?error=Failed to record incident");
             CloseCon();
