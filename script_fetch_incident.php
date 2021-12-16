@@ -11,15 +11,10 @@ if (isset($_POST['incidentId'])) {
     if (empty($_POST['incidentId'])) {
         header("Location: page_edit_incident.php?error=Please enter an Incident ID");
         $_SESSION['incidentId'] = NULL;
-<<<<<<< Updated upstream
-        $_SESSION['offNameI'] = NULL;
-        $_SESSION['pointsI'] = NULL;
-=======
         $_SESSION['personIdI'] = NULL;
         $_SESSION['offNameI'] = NULL;
         $_SESSION['pointsI'] = NULL;
         $_SESSION['pointsOLD'] = NULL;
->>>>>>> Stashed changes
         $_SESSION['fineI'] = NULL;
         $_SESSION['statementI'] = NULL;
         CloseCon();
@@ -37,17 +32,11 @@ if (isset($_POST['incidentId'])) {
         if(mysqli_num_rows($result) === 1){
             $row = mysqli_fetch_assoc($result);
             $_SESSION['incidentId'] = $_POST['incidentId'];
-<<<<<<< Updated upstream
-            $_SESSION['offNameI'] = $row['Person_Name'];
-            $_SESSION['pointsI'] = $row['Incident_Points_Awarded'];
-            $_SESSION['fineI'] = $row['Incident_Fine_Amount'];
-=======
             $_SESSION['personIdI'] = $row['Person_ID'];
             $_SESSION['offNameI'] = $row['Person_Name'];
             $_SESSION['pointsI'] = $row['Incident_Points_Awarded'];
             $_SESSION['pointsOLD'] = $row['Incident_Points_Awarded'];
             $_SESSION['fineI'] = $row['Incident_Fine_Amount'];           
->>>>>>> Stashed changes
             $_SESSION['statementI'] = $row['Incident_Statement'];
             header("Location: page_edit_incident.php?error=Incident found");
             CloseCon();
@@ -55,15 +44,10 @@ if (isset($_POST['incidentId'])) {
         }else{
             header("Location: page_edit_incident.php?error=Incident not found");
             $_SESSION['incidentId'] = NULL;
-<<<<<<< Updated upstream
-            $_SESSION['offNameI'] = NULL;
-            $_SESSION['pointsI'] = NULL;
-=======
             $_SESSION['personIdI'] = NULL;
             $_SESSION['offNameI'] = NULL;
             $_SESSION['pointsI'] = NULL;
             $_SESSION['pointsOLD'] = NULL;
->>>>>>> Stashed changes
             $_SESSION['fineI'] = NULL;
             $_SESSION['statementI'] = NULL;
             CloseCon();
