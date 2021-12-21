@@ -23,7 +23,7 @@ CREATE TABLE Incident (
 Incident_ID int(11) NOT NULL,
 Officer_ID int(11) NOT NULL,
 Person_ID int(11) NOT NULL,
-Vehicle_ID int(11) NOT NULL,
+Vehicle_ID int(11),
 Offence_ID int(11) NOT NULL,
 Incident_Fine_Amount int(11) DEFAULT 0,
 Incident_Points_Awarded int(11) DEFAULT 0,
@@ -74,28 +74,28 @@ INSERT INTO Offence (Offence_ID, Offence_Description, Offence_Max_Fine, Offence_
 (4, 'Illegal parking', 500, 0),
 (5, 'Drink driving', 10000, 11),
 (6, 'Driving without a licence', 10000, 0),
-(7, 'Driving without a licence', 10000, 0),
-(8, 'Traffic light offences', 1000, 3),
-(9, 'Cycling on pavement', 500, 0),
-(10, 'Failure to have control of vehicle', 1000, 3),
-(11, 'Dangerous driving', 1000, 11),
-(12, 'Careless driving', 5000, 6),
-(13, 'Dangerous cycling', 2500, 0);
+(7, 'Traffic light offences', 1000, 3),
+(8, 'Cycling on pavement', 500, 0),
+(9, 'Failure to have control of vehicle', 1000, 3),
+(10, 'Dangerous driving', 1000, 11),
+(11, 'Careless driving', 5000, 6),
+(12, 'Dangerous cycling', 2500, 0);
 
 DROP TABLE IF EXISTS Officer;
 CREATE TABLE Officer (
 Officer_ID int(11) NOT NULL,
 Officer_Name varchar(50) NOT NULL,
 Officer_DOB DATE,
-Officer_username varchar(40) NOT NULL,
-Officer_password varchar(40) NOT NULL
+Officer_Username varchar(40) NOT NULL,
+Officer_Password varchar(40) NOT NULL,
+Officer_Type int(2) DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-INSERT INTO Officer (Officer_ID, Officer_Name, Officer_DOB, Officer_username, Officer_password) VALUES
-(55, 'Terrance Truffle', '1948-12-25', 'bonus_login', 'terriblePassword'),
-(56, 'Adam Inistrator', '1970-01-01', 'Daniels', 'copper99'),
-(57, 'Rudolph McNulty', '1870-10-30', 'McNulty', 'plod123'),
-(58, 'Ineed Moreland', '1912-12-12', 'Moreland', 'fuzz42');
+INSERT INTO Officer (Officer_ID, Officer_Name, Officer_DOB, Officer_Username, Officer_Password, Officer_Type) VALUES
+(55, 'Terrance Truffle', '1948-12-25', 'bonus_login', 'terriblePassword', 1),
+(56, 'Adam Inistrator', '1970-01-01', 'Daniels', 'copper99', 2),
+(57, 'Rudolph McNulty', '1870-10-30', 'McNulty', 'plod123', 1),
+(58, 'Ineed Moreland', '1912-12-12', 'Moreland', 'fuzz42', 1);
 
 DROP TABLE IF EXISTS Ownership;
 CREATE TABLE Ownership (
@@ -138,6 +138,14 @@ ALTER TABLE Ownership
   ADD KEY fk_person (Person_ID),
   ADD KEY fk_vehicle (Vehicle_ID);
 
+ALTER TABLE Incident
+  ADD CONSTRAINT fk_incident_offence FOREIGN KEY (Offence_ID) REFERENCES Offence (Offence_ID),
+  ADD CONSTRAINT fk_incident_person FOREIGN KEY (Person_ID) REFERENCES Person (Person_ID),
+  ADD CONSTRAINT fk_incident_vehicle FOREIGN KEY (Vehicle_ID) REFERENCES Vehicle (Vehicle_ID);
+
+ALTER TABLE Ownership
+  ADD CONSTRAINT fk_person FOREIGN KEY (Person_ID) REFERENCES Person (Person_ID),
+  ADD CONSTRAINT fk_vehicle FOREIGN KEY (Vehicle_ID) REFERENCES Vehicle (Vehicle_ID);
 
 ALTER TABLE Vehicle
   MODIFY Vehicle_ID int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
@@ -149,16 +157,7 @@ ALTER TABLE Person
   MODIFY Person_ID int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
   
 ALTER TABLE Offence
-  MODIFY Offence_ID int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY Offence_ID int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
   
 ALTER TABLE Officer
   MODIFY Officer_ID int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
-
-ALTER TABLE Incident
-  ADD CONSTRAINT fk_incident_offence FOREIGN KEY (Offence_ID) REFERENCES Offence (Offence_ID),
-  ADD CONSTRAINT fk_incident_person FOREIGN KEY (Person_ID) REFERENCES Person (Person_ID),
-  ADD CONSTRAINT fk_incident_vehicle FOREIGN KEY (Vehicle_ID) REFERENCES Vehicle (Vehicle_ID);
-
-ALTER TABLE Ownership
-  ADD CONSTRAINT fk_person FOREIGN KEY (Person_ID) REFERENCES Person (Person_ID),
-  ADD CONSTRAINT fk_vehicle FOREIGN KEY (Vehicle_ID) REFERENCES Vehicle (Vehicle_ID);

@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
+if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
 
     header("Location: page_login.php?error=Please login to access protected areas");
 
@@ -12,151 +12,15 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
     <style>
-        html,
-        body {
-            height: 100%;
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-        }
-        .box {
-            display: flex;
-            flex-flow: column;
-            height: 100%;
-        }
-        .box .row {
-            border: 0px;
-        }
-        .box .row.header {
-            flex: 0 1 180px;
-            background-color: #13003f;
-        }       
-        .header a {
-            color: #efeef4;
-            text-align: center;
-            padding: 15px;
-            text-decoration: none;
-            font-size: 23px;
-            line-height: 25px;
-            border-radius: 4px;
-            margin: 3px;
-        }
-        .header img {
-            float: left;
-        }
-        .header img.small {
-            visibility: hidden;
-        }
-        .header a:hover {
-            background-color: #3a2c5f;
-            color: white;
-        }
-        .header a.active{
-            background-color:#8279a7;
-            color: black;
-        }
-        .header-right {
-            float: right;
-            padding: 30px 15px;
-        }
-        .header-right a {
-            font-weight: bold;
-            text-align: right;
-        }
-        .box .row.content {
-            flex: 1 1 auto;
-        }
-        .admin {
-            visibility: hidden;
-        }
         <?php if ($_SESSION['type'] == "2"):?>
             .admin {
                 visibility: visible;
             }
         <?php endif; ?>
-        nav {
-            float: left;
-            width: 330px;
-            background: #060412;
-            flex: 1 1 auto;
-            height: 100%
-        }
-        nav ul {
-            list-style-type: none;
-            padding: 12px;
-        }
-        nav ul li {
-            margin-bottom: 15px;
-            background-color: whitesmoke;
-            padding: 12px;
-            border-radius: 4px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #060412;
-            font-size: 23px;
-        }
-        nav ul li:hover {
-            background-color: #6e6782;
-        }
-        nav ul li a:hover {
-            color: white;
-        }
-        article {
-            float: left;
-            padding: 20px;
-            color: black;
-            flex: 1 1 auto;
-        }
-        article form label {
-            font-size: 15px;
-        }
-        article form input {
-            border: 2px solid #ccc;
-            display: inline-block;
-            padding: 12px 12px;
-            box-sizing: border-box;
-            border-radius: 4px;
-            margin: 5px 0px;
-            width: 220px;
-            height: 45px;
-        }
-        .grid {
-            display: grid;
-            grid-gap: 12px;
-            grid-template-columns: repeat(3, 1fr);
-        }
-        .grid div p select {
-            width: 220px;
-            height: 45px;    
-            border: 2px solid #ccc;
-            display: inline-block;
-            padding: 12px 12px;
-            box-sizing: border-box;
-            border-radius: 4px;
-            margin: 5px 0px;   
-        }
-        table, th, tr, td {
-            border: 2px solid #6e6782;
-            border-radius: 4px;
-            padding: 2px;
-            font-size: 18px;
-        }
-        table {
-            background-color: #13003f;
-        }
-        th, tr, td {
-            background-color: whitesmoke;
-        }
-        .box .row.footer {
-            flex: 0 0 25px;
-            background-color: #13003f;
-            padding: 5px 75px;
-            text-align: right;
-            color: #8279a7;
-            float: bottom;
-        }
-        @media screen and (max-width: 1060px) {
+        {}
+        @media screen and (max-width: 1070px){
             nav {
                 width: 100%;
                 height: auto;
@@ -168,7 +32,7 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
                 display: none;
             }
         }
-        @media screen and (max-width: 1100px) {
+        @media screen and (max-width: 1150px){
             img#logo {
                 display: none;
             }
@@ -195,9 +59,10 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
             <nav>
                 <ul>
                     <li><a href="page_home.php">Log an incident</a></li>
-                    <li><a href="page_search_incident.php">Search existing incidents</a></li>
+                    <li><a href="page_search_incident.php">Incident database</a></li>
                     <li><a href="page_edit_incident.php">Edit existing incident</a></li>
                     <li><a href="page_people_db.php">People database</a></li>
+                    <li><a href="page_edit_person.php">Edit existing person</a></li>
                     <li><a href="page_vehicle_db.php">Vehicle database</a></li>
                     <li><a href="page_add_vehicle.php">Register a vehicle</a></li>
                     <li><a href="page_password_reset.php">Reset your password</a></li>
@@ -234,9 +99,9 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
                 <table id="resultsTable">
                     <tr>
                         <th>Name</th>
-                        <th>License Number</th>
+                        <th>License No.</th>
                         <th>Address</th>
-                        <th>Total Points</th>
+                        <th>Points</th>
                     </tr>
                     <?php while ($row1 = mysqli_fetch_array($result)):;?>
                     <tr>
@@ -256,26 +121,26 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
         </div>
     </div>
     <script>
-function serveResults() {
-  var input, filter, table, tr, td, i, txtValue;
+function serveResults() { /// This function was found on StackExchange - I can't find the page but I don't want to be penalised for Plagiarism.
+  var input, filter, table, tr, td, i, txtValue; /// I changed a few elements obviously but the core of this function is not my own work.
   input = document.getElementById("searchField");
   filter = input.value.toUpperCase();
   table = document.getElementById("resultsTable");
   tr = table.getElementsByTagName("tr");
-  searchCrit = document.getElementById("searchCrit")
-  if (searchCrit.value == "fullName") {
+  searchCrit = document.getElementById("searchCrit");
+  if (searchCrit.value == "fullName"){
       column = 0;
   }
-  if (searchCrit.value == "licenseNumber") {
+  if (searchCrit.value == "licenseNumber"){
       column = 1;
   }
   for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("td")[column];
     if (td) {
       txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      if (txtValue.toUpperCase().indexOf(filter) > -1){
         tr[i].style.display = "";
-      } else {
+      }else{
         tr[i].style.display = "none";
       }
     }       

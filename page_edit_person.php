@@ -5,14 +5,14 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
     header("Location: page_login.php?error=Please login to access protected areas");
 
 }
-if (!isset($_SESSION['offNameI'])){
-    $_SESSION['offNameI'] = NULL;
-}if (!isset($_SESSION['pointsI'])){
-    $_SESSION['pointsI'] = NULL;
-}if (!isset($_SESSION['fineI'])){
-    $_SESSION['fineI'] = NULL;
-}if (!isset($_SESSION['statementI'])){
-    $_SESSION['statementI'] = NULL;
+if (!isset($_SESSION['nameP'])){
+    $_SESSION['nameP'] = NULL;
+}if (!isset($_SESSION['licenseNumberP'])){
+    $_SESSION['licenseNumberP'] = NULL;
+}if (!isset($_SESSION['dobP'])) {
+    $_SESSION['dobP'] = NULL;
+}if (!isset($_SESSION['addressP'])){
+    $_SESSION['addressP'] = NULL;
 }?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +53,7 @@ if (!isset($_SESSION['offNameI'])){
             }
         }
     </style>
-    <title>Edit existing Incident</title>
+    <title>Edit existing Person</title>
 </head>
 <body style="background-color: whitesmoke;">
     <div class="box">
@@ -80,47 +80,47 @@ if (!isset($_SESSION['offNameI'])){
                 </ul>
             </nav>
             <article>
-                <h1>Edit an existing Incident here:</h1>
-                <form action="http://mersey.cs.nott.ac.uk/~psxtt1/script_fetch_incident.php" method="post">
+                <h1>Edit an existing Person here:</h1>
+                <form action="http://mersey.cs.nott.ac.uk/~psxtt1/script_fetch_person.php" method="post">
                     <div class="grid">
                         <div>
                             <p>
-                                <label for="incidentId">Incident ID:</label><br>
-                                <input type="number" id="incidentId" name="incidentId">
+                                <label for="personId">Person ID:</label><br>
+                                <input type="number" id="personId" name="personId">
                             </p>
                         </div>
                         <div>
                             <p>
                                 <br>
-                                <input type="submit" id="fetch" value="Fetch Incident">  
+                                <input type="submit" id="fetch" value="Fetch Person">  
                             </p>
                         </div>
                     </div>
                 </form>
-                <form action="http://mersey.cs.nott.ac.uk/~psxtt1/script_edit_incident.php" method="post">
+                <form action="http://mersey.cs.nott.ac.uk/~psxtt1/script_edit_person.php" method="post">
                     <div class="grid">
                         <div>
                             <p>
-                                <label for="offName">Offendee Name:</label><br>
-                                <input type="text" id="offName" name="offName"  readonly value="<?php echo htmlspecialchars($_SESSION['offNameI']);?>">
+                                <label for="name">Person Name:</label><br>
+                                <input type="text" id="name" name="name" value="<?php echo htmlspecialchars($_SESSION['nameP']);?>">
                             </p>                        
                         </div>
                         <div>
                             <p>
-                                <label for="points">Points Awarded:</label><br>
-                                <input type="number" id="points" name="points" value=<?php echo htmlspecialchars($_SESSION['pointsI']);?> max="11">
+                                <label for="licenseNumber">License Number:</label><br>
+                                <input type="text" id="licenseNumber" name="licenseNumber" value="<?php echo htmlspecialchars($_SESSION['licenseNumberP']);?>">
                             </p>                            
                         </div>
                         <div class="admin">
                             <p>
-                                <label for="points">Fine Given (£):</label><br>
-                                <input type="number" id="fine" name="fine" value=<?php echo htmlspecialchars($_SESSION['fineI']);?> max="10000">
+                                <label for="dob">Date of Birth:</label><br>
+                                <input type="date" id="dob" name="dob" readonly value=<?php echo htmlspecialchars($_SESSION['dobP']);?>>
                             </p>                            
                         </div>
                     </div>
                     <p>
-                        <label for="">Officer Statement:</label><br>
-                        <textarea id="statement" name="statement" cols="85" rows="12"><?php echo htmlspecialchars($_SESSION['statementI']);?></textarea>
+                        <label for="">Person Address:</label><br>
+                        <textarea id="address" name="address" cols="85" rows="12"><?php echo htmlspecialchars($_SESSION['addressP']);?></textarea>
                     </p>
                     <div>
                         <?php if (isset($_GET['error'])){ ?>

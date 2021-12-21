@@ -1,9 +1,21 @@
 <?php 
 session_start();
-if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
+if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
 
     header("Location: page_login.php?error=Please login to access protected areas");
 
+}if (!isset($_SESSION['offNameH'])){
+    $_SESSION['offNameH'] = NULL;
+}if (!isset($_SESSION['carRegH'])){
+    $_SESSION['carRegH'] = NULL;
+}if (!isset($_SESSION['licenseNumberH'])){
+    $_SESSION['licenseNumberH'] = NULL;
+}if (!isset($_SESSION['pointsH'])){
+    $_SESSION['pointsH'] = NULL;
+}if (!isset($_SESSION['dateH'])){
+    $_SESSION['dateH'] = NULL;
+}if (!isset($_SESSION['statementH'])){
+    $_SESSION['statementH'] = NULL;
 }?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,154 +23,20 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
     <style>
-        html,
-        body {
-            height: 100%;
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-        }
-        .box {
-            display: flex;
-            flex-flow: column;
-            height: 100%;
-        }
-        .box .row {
-            border: 0px;
-        }
-        .box .row.header {
-            flex: 0 1 180px;
-            background-color: #13003f;
-        }       
-        .header a {
-            color: #efeef4;
-            text-align: center;
-            padding: 15px;
-            text-decoration: none;
-            font-size: 23px;
-            line-height: 25px;
-            border-radius: 4px;
-            margin: 3px;
-        }
-        .header img {
-            float: left;
-        }
-        .header img.small {
-            visibility: hidden;
-        }
-        .header a:hover {
-            background-color: #3a2c5f;
-            color: white;
-        }
-        .header a.active{
-            background-color:#8279a7;
-            color: black;
-        }
-        .header-right {
-            float: right;
-            padding: 30px 15px;
-        }
-        .header-right a {
-            font-weight: bold;
-            text-align: right;
-        }
-        .box .row.content {
-            flex: 1 1 auto;
-        }
-        .admin {
-            visibility: hidden;
-        }
         <?php if ($_SESSION['type'] == "2"):?>
             .admin {
                 visibility: visible;
             }
         <?php endif; ?>
-        {}
-        nav {
-            float: left;
-            width: 330px;
-            background: #060412;
-            flex: 1 1 auto;
-            height: 100%
-        }
-        nav ul {
-            list-style-type: none;
-            padding: 12px;
-        }
-        nav ul li {
-            margin-bottom: 15px;
-            background-color: whitesmoke;
-            padding: 12px;
-            border-radius: 4px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #060412;
-            font-size: 23px;
-        }
-        nav ul li:hover {
-            background-color: #6e6782;
-        }
-        nav ul li a:hover {
-            color: white;
-        }
-        article {
-            float: left;
-            padding: 20px;
-            color: black;
-            flex: 1 1 auto;
-        }
-        article form label {
-            font-size: 15px;
-        }
-        article form input {
-            border: 2px solid #ccc;
-            display: inline-block;
-            padding: 12px 12px;
-            box-sizing: border-box;
-            border-radius: 4px;
-            margin: 5px 0px;
-            width: 220px;
-            height: 45px;
-        }
-        .grid {
-            display: grid;
-            grid-gap: 12px;
-            grid-template-columns: repeat(4, 1fr);
-        }
-        .grid div p select {
-            width: 220px;
-            height: 45px;    
-            border: 2px solid #ccc;
-            display: inline-block;
-            padding: 12px 12px;
-            box-sizing: border-box;
-            border-radius: 4px;
-            margin: 5px 0px;   
-        }
-        .hidden {
-            visibility: hidden;
-        }
         <?php if ($_SESSION['newCar'] == "yes"):?>
             .hidden {
                 visibility: visible;
             }
         <?php endif; ?>
-        {}/* I know this looks weird but for some reason the php above stops the following class from working */
-        textarea { 
-            resize: none;
-            border-radius: 4px;
-            padding: 8px 8px;
-        }
-        .box .row.footer {
-            flex: 0 0 25px;
-            background-color: #13003f;
-            padding: 5px 75px;
-            text-align: right;
-            color: #8279a7;
-            float: bottom;
-        }
-        @media screen and (max-width: 1130px) {
+        {}
+        @media screen and (max-width: 1130px){
             img#logo {
                 display: none;
             }
@@ -195,9 +73,10 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
             <nav>
                 <ul>
                     <li><a href="page_home.php">Log an incident</a></li>
-                    <li><a href="page_search_incident.php">Search existing incidents</a></li>
+                    <li><a href="page_search_incident.php">Incident database</a></li>
                     <li><a href="page_edit_incident.php">Edit existing incident</a></li>
                     <li><a href="page_people_db.php">People database</a></li>
+                    <li><a href="page_edit_person.php">Edit existing person</a></li>
                     <li><a href="page_vehicle_db.php">Vehicle database</a></li>
                     <li><a href="page_add_vehicle.php">Register a vehicle</a></li>
                     <li><a href="page_password_reset.php">Reset your password</a></li>
@@ -205,18 +84,18 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
             </nav>
             <article>
                 <h1>Log a new Incident here:</h1>
-                <form action="//localhost/databasescw2/script_incident.php" method="post">
+                <form action="http://mersey.cs.nott.ac.uk/~psxtt1/script_incident.php" method="post">
                     <div class="grid">
                         <div>
                             <p>
                                 <label for="offName">Offendee Name:</label><br>
-                                <input type="text" id="offName" name="offName" placeholder="John Doe">
+                                <input type="text" id="offName" name="offName" placeholder="Paul Scholes.." value="<?php echo htmlspecialchars($_SESSION['offNameH'])?>">
                             </p>                        
                         </div>
                         <div>
                             <p>
                                 <label for="carReg">Vehicle Registration:</label><br>
-                                <input type="text" id="carReg" name="carReg" placeholder="AE15 K7Y">
+                                <input type="text" id="carReg" name="carReg" placeholder="AE15 K7Y.." value="<?php echo htmlspecialchars($_SESSION['carRegH'])?>">
                             </p>
                         </div>
                         <div>
@@ -238,43 +117,31 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
                                 </select>
                             </p>                            
                         </div>
-                        <div class="hidden">
-                            <p>
-                                <label for="vehicleType">Vehicle Type:</label><br>
-                                <input type="text" id="vehicleType" name="vehicleType">
-                            </p>
-                        </div>
                         <div>
                             <p>
                                 <label for="licenseNumber">License Number:</label><br>
-                                <input type="text" id="licenseNumber" name="licenseNumber">
+                                <input type="text" id="licenseNumber" name="licenseNumber" placeholder="SCHOL27278320423.." value="<?php echo htmlspecialchars($_SESSION['licenseNumberH'])?>">
                             </p>                            
                         </div>
                         <div>
                             <p>
                                 <label for="points">Points Awarded:</label><br>
-                                <input type="number" id="points" name="points" value="0" max="11">
+                                <input type="number" id="points" name="points" value="0" max="11" value="<?php echo htmlspecialchars($_SESSION['pointsH'])?>">
                             </p>                            
                         </div>
                         <div>
                             <p>
                                 <label for="date">Date:</label><br>
-                                <input type="datetime-local" id="date" name="date" width="120px">
+                                <input type="datetime-local" id="date" name="date" width="120px" value="<?php echo htmlspecialchars($_SESSION['dateH'])?>">
                             </p>                            
-                        </div>
-                        <div class="hidden">
-                            <p>
-                                <label for="vehicleColour">Vehicle Colour:</label><br>
-                                <input type="text" id="vehicleColour" name="vehicleColour">
-                            </p>
                         </div>
                     </div>
                     <p>
                         <label for="">Officer Statement:</label><br>
-                        <textarea class="noResize" id="statement" name="statement" cols="85" rows="12"></textarea>
+                        <textarea class="noResize" id="statement" name="statement" placeholder="Spat in my cereal.." cols="85" rows="12"><?php echo htmlspecialchars($_SESSION['statementH'])?></textarea>
                     </p>
                     <div>
-                        <?php if (isset($_GET['error'])) { ?>
+                        <?php if (isset($_GET['error'])){ ?>
                         <p class="error"><b><?php echo $_GET['error']; ?><b></p>
                         <?php } ?> 
                         <p>

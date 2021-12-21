@@ -1,9 +1,19 @@
 <?php 
 session_start();
-if (!isset($_SESSION['id']) || !isset($_SESSION['username']) || $_SESSION['type'] === 1) {
+if (!isset($_SESSION['id']) || !isset($_SESSION['username']) || $_SESSION['type'] === 1){
 
     header("Location: page_login.php?error=Please login to access protected areas");
 
+}if (!isset($_SESSION['fullNameO'])){
+    $_SESSION['fullNameO'] = NULL;
+}if (!isset($_SESSION['DOBO'])){
+    $_SESSION['DOBO'] = NULL;
+}if (!isset($_SESSION['usernameO'])){
+    $_SESSION['usernameO'] = NULL;
+}if (!isset($_SESSION['passwordO'])){
+    $_SESSION['passwordO'] = NULL;
+}if (!isset($_SESSION['passwordConO'])){
+    $_SESSION['passwordConO'] = NULL;
 }?>
 <!DOCTYPE html>
 <html lang="en">
@@ -11,146 +21,15 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username']) || $_SESSION['type'
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style>
-        html,
-        body {
-            height: 100%;
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-        }
-        .box {
-            display: flex;
-            flex-flow: column;
-            height: 100%;
-        }
-        .box .row {
-            border: 0px;
-        }
-        .box .row.header {
-            flex: 0 1 180px;
-            background-color: #13003f;
-        }       
-        .header a {
-            color: #efeef4;
-            text-align: center;
-            padding: 15px;
-            text-decoration: none;
-            font-size: 23px;
-            line-height: 25px;
-            border-radius: 4px;
-            margin: 3px;
-        }
-        .header img {
-            float: left;
-        }
-        .header img.small {
-            visibility: hidden;
-        }
-        .header a:hover {
-            background-color: #3a2c5f;
-            color: white;
-        }
-        .header a.active{
-            background-color:#8279a7;
-            color: black;
-        }
-        .header-right {
-            float: right;
-            padding: 30px 15px;
-        }
-        .header-right a {
-            font-weight: bold;
-            text-align: right;
-        }
-        .box .row.content {
-            flex: 1 1 auto;
-        }
-        .admin {
-            visibility: hidden;
-        }
+    <link href="styles.css" rel="stylesheet">
+    <style> 
         <?php if ($_SESSION['type'] == "2"):?>
             .admin {
                 visibility: visible;
             }
         <?php endif; ?>
-        nav {
-            float: left;
-            width: 330px;
-            background: #060412;
-            flex: 1 1 auto;
-            height: 100%
-        }
-        nav ul {
-            list-style-type: none;
-            padding: 12px;
-        }
-        nav ul li {
-            margin-bottom: 15px;
-            background-color: whitesmoke;
-            padding: 12px;
-            border-radius: 4px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #060412;
-            font-size: 23px;
-        }
-        nav ul li:hover {
-            background-color: #6e6782;
-        }
-        nav ul li a:hover {
-            color: white;
-        }
-        article {
-            float: left;
-            padding: 20px;
-            color: black;
-            flex: 1 1 auto;
-        }
-        article form label {
-            font-size: 15px;
-        }
-        article form input {
-            border: 2px solid #ccc;
-            display: inline-block;
-            padding: 12px 12px;
-            box-sizing: border-box;
-            border-radius: 4px;
-            margin: 5px 0px;
-            width: 220px;
-            height: 45px;
-        }
-        .grid {
-            display: grid;
-            grid-gap: 12px;
-            grid-template-columns: repeat(3, 1fr);
-        }
-        .grid div p select {
-            width: 220px;
-            height: 45px;    
-            border: 2px solid #ccc;
-            display: inline-block;
-            padding: 12px 12px;
-            box-sizing: border-box;
-            border-radius: 4px;
-            margin: 5px 0px;   
-        }
-        .thick {
-            width: 15px;
-            height: 15px;
-        }
-        .hidden {
-            visibility: hidden;
-        }
-        .box .row.footer {
-            flex: 0 0 25px;
-            background-color: #13003f;
-            padding: 5px 75px;
-            text-align: right;
-            color: #8279a7;
-            float: bottom;
-        }
-        @media screen and (max-width: 1130px) {
+        {}
+        @media screen and (max-width: 1130px){
             img#logo {
                 display: none;
             }
@@ -187,9 +66,10 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username']) || $_SESSION['type'
             <nav>
                 <ul>
                     <li><a href="page_home.php">Log an incident</a></li>
-                    <li><a href="page_search_incident.php">Search existing incidents</a></li>
+                    <li><a href="page_search_incident.php">Incident database</a></li>
                     <li><a href="page_edit_incident.php">Edit existing incident</a></li>
                     <li><a href="page_people_db.php">People database</a></li>
+                    <li><a href="page_edit_person.php">Edit existing person</a></li>
                     <li><a href="page_vehicle_db.php">Vehicle database</a></li>
                     <li><a href="page_add_vehicle.php">Register a vehicle</a></li>
                     <li><a href="page_password_reset.php">Reset your password</a></li>
@@ -197,18 +77,18 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username']) || $_SESSION['type'
             </nav>
             <article>
                 <h1>Create a new Officer user:</h1>
-                <form action="//localhost/databasescw2/script_create_user.php" method="post">
+                <form action="http://mersey.cs.nott.ac.uk/~psxtt1/script_create_user.php" method="post">
                     <div class="grid">
                         <div>
                             <p>
                                 <label for="fullName">Officer Name:</label><br>
-                                <input type="text" id="fullName" name="fullName" placeholder="Bill Boggs">
+                                <input type="text" id="fullName" name="fullName" placeholder="Bill Boggs" value="<?php echo htmlspecialchars($_SESSION['fullNameO']);?>">
                             </p>                        
                         </div>
                         <div>
                             <p>
                                 <label for="DOB">Date of Birth:</label><br>
-                                <input type="datetime-local" id="DOB" name="DOB" width="120px">
+                                <input type="datetime-local" id="DOB" name="DOB" width="120px" value="<?php echo htmlspecialchars($_SESSION['DOBO']);?>">
                             </p>
                         </div>
                         <div>
@@ -223,25 +103,25 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username']) || $_SESSION['type'
                         <div>
                             <p>
                                 <label for="username">Username:</label><br>
-                                <input type="text" id="username" name="username"><br>
+                                <input type="text" id="username" name="username" placeholder="Bill Plodsley" value="<?php echo htmlspecialchars($_SESSION['usernameO']);?>"><br>
                                 <input class="thick" type="checkbox" onclick="showPass()"> Show Passwords
                             </p>                            
                         </div>
                         <div>
                             <p>
                                 <label for="password">Password:</label><br>
-                                <input type="password" id="password" name="password"><br>
+                                <input type="password" id="password" name="password" value="<?php echo htmlspecialchars($_SESSION['passwordO']);?>"><br>
                             </p>                            
                         </div>
                         <div>
                             <p>
                                 <label for="passwordCon">Password:</label><br>
-                                <input type="password" id="passwordCon" name="passwordCon">
+                                <input type="password" id="passwordCon" name="passwordCon" value="<?php echo htmlspecialchars($_SESSION['passwordConO']);?>">
                             </p>                            
                         </div>
                     </div>
                     <div>
-                        <?php if (isset($_GET['error'])) { ?>
+                        <?php if (isset($_GET['error'])){ ?>
                         <p class="error"><b><?php echo $_GET['error']; ?><b></p>
                         <?php } ?> 
                         <p>
@@ -261,10 +141,10 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username']) || $_SESSION['type'
         function showPass() {
             var x = document.getElementById("password");
             var y = document.getElementById("passwordCon");
-            if (x.type === "password") {
+            if (x.type === "password"){
                 x.type = "text";
                 y.type = "text";
-            } else {
+            }else{
                 x.type = "password";
                 y.type = "password";
             }

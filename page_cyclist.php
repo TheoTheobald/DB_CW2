@@ -4,15 +4,18 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
 
     header("Location: page_login.php?error=Please login to access protected areas");
 
-}
-if (!isset($_SESSION['offNameI'])){
-    $_SESSION['offNameI'] = NULL;
-}if (!isset($_SESSION['pointsI'])){
-    $_SESSION['pointsI'] = NULL;
-}if (!isset($_SESSION['fineI'])){
-    $_SESSION['fineI'] = NULL;
-}if (!isset($_SESSION['statementI'])){
-    $_SESSION['statementI'] = NULL;
+}if (!isset($_SESSION['offNameC'])){
+    $_SESSION['offNameC'] = NULL;
+}if (!isset($_SESSION['addressC'])){
+    $_SESSION['addressC'] = NULL;
+}if (!isset($_SESSION['licenseNumberC'])){
+    $_SESSION['licenseNumberC'] = NULL;
+}if (!isset($_SESSION['pointsC'])){
+    $_SESSION['pointsC'] = NULL;
+}if (!isset($_SESSION['dateC'])){
+    $_SESSION['dateC'] = NULL;
+}if (!isset($_SESSION['statementC'])){
+    $_SESSION['statementC'] = NULL;
 }?>
 <!DOCTYPE html>
 <html lang="en">
@@ -53,7 +56,7 @@ if (!isset($_SESSION['offNameI'])){
             }
         }
     </style>
-    <title>Edit existing Incident</title>
+    <title>Log an Incident</title>
 </head>
 <body style="background-color: whitesmoke;">
     <div class="box">
@@ -80,54 +83,59 @@ if (!isset($_SESSION['offNameI'])){
                 </ul>
             </nav>
             <article>
-                <h1>Edit an existing Incident here:</h1>
-                <form action="http://mersey.cs.nott.ac.uk/~psxtt1/script_fetch_incident.php" method="post">
-                    <div class="grid">
-                        <div>
-                            <p>
-                                <label for="incidentId">Incident ID:</label><br>
-                                <input type="number" id="incidentId" name="incidentId">
-                            </p>
-                        </div>
-                        <div>
-                            <p>
-                                <br>
-                                <input type="submit" id="fetch" value="Fetch Incident">  
-                            </p>
-                        </div>
-                    </div>
-                </form>
-                <form action="http://mersey.cs.nott.ac.uk/~psxtt1/script_edit_incident.php" method="post">
+                <h1>Log a new cycling Incident here:</h1>
+                <form action="http://mersey.cs.nott.ac.uk/~psxtt1/script_cyclist.php" method="post">
                     <div class="grid">
                         <div>
                             <p>
                                 <label for="offName">Offendee Name:</label><br>
-                                <input type="text" id="offName" name="offName"  readonly value="<?php echo htmlspecialchars($_SESSION['offNameI']);?>">
+                                <input type="text" id="offName" name="offName" placeholder="John Doe" value="<?php echo htmlspecialchars($_SESSION['offNameC'])?>">
                             </p>                        
                         </div>
                         <div>
                             <p>
-                                <label for="points">Points Awarded:</label><br>
-                                <input type="number" id="points" name="points" value=<?php echo htmlspecialchars($_SESSION['pointsI']);?> max="11">
+                                <label for="address">Address:</label><br>
+                                <input type="text" id="address" name="address" placeholder="123 Carrington Dr." value="<?php echo htmlspecialchars($_SESSION['addressC'])?>">
+                            </p>
+                        </div>
+                        <div>
+                            <p>
+                                <label for="offence">Offence:</label><br>
+                                <select name="offence" id="offence">
+                                    <option value="8">Pavement cycling</option>
+                                    <option value="12">Dangerous cycling</option>           
+                                </select>
                             </p>                            
                         </div>
-                        <div class="admin">
+                        <div>
                             <p>
-                                <label for="points">Fine Given (£):</label><br>
-                                <input type="number" id="fine" name="fine" value=<?php echo htmlspecialchars($_SESSION['fineI']);?> max="10000">
+                                <label for="licenseNumber">License Number:</label><br>
+                                <input type="text" id="licenseNumber" name="licenseNumber" placeholder="DOEJO27278320423" value="<?php echo htmlspecialchars($_SESSION['licenseNumberC'])?>">
+                            </p>                            
+                        </div>
+                        <div>
+                            <p>
+                                <label for="points">Points Awarded:</label><br>
+                                <input type="number" id="points" name="points" value="0" max="11" value="<?php echo htmlspecialchars($_SESSION['pointsC'])?>">
+                            </p>                            
+                        </div>
+                        <div>
+                            <p>
+                                <label for="date">Date:</label><br>
+                                <input type="datetime-local" id="date" name="date" width="120px" value="<?php echo htmlspecialchars($_SESSION['dateC'])?>">
                             </p>                            
                         </div>
                     </div>
                     <p>
                         <label for="">Officer Statement:</label><br>
-                        <textarea id="statement" name="statement" cols="85" rows="12"><?php echo htmlspecialchars($_SESSION['statementI']);?></textarea>
+                        <textarea class="noResize" id="statement" name="statement" placeholder="Spat in my cereal" cols="85" rows="12"><?php echo htmlspecialchars($_SESSION['statementC'])?></textarea>
                     </p>
                     <div>
                         <?php if (isset($_GET['error'])){ ?>
                         <p class="error"><b><?php echo $_GET['error']; ?><b></p>
                         <?php } ?> 
                         <p>
-                            <input type="submit" id="commitChanges" value="Commit Changes">       
+                            <input type="submit" id="logInc" value="Log Incident">       
                         </p>          
                     </div>
                 </form> 

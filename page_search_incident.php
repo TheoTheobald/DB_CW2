@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
+if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
 
     header("Location: page_login.php?error=Please login to access protected areas");
 
@@ -11,151 +11,15 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet">
     <style>
-        html,
-        body {
-            height: 100%;
-            font-family: Arial, Helvetica, sans-serif;
-            margin: 0;
-        }
-        .box {
-            display: flex;
-            flex-flow: column;
-            height: 100%;
-        }
-        .box .row {
-            border: 0px;
-        }
-        .box .row.header {
-            flex: 0 1 180px;
-            background-color: #13003f;
-        }       
-        .header a {
-            color: #efeef4;
-            text-align: center;
-            padding: 15px;
-            text-decoration: none;
-            font-size: 23px;
-            line-height: 25px;
-            border-radius: 4px;
-            margin: 3px;
-        }
-        .header img {
-            float: left;
-        }
-        .header img.small {
-            visibility: hidden;
-        }
-        .header a:hover {
-            background-color: #3a2c5f;
-            color: white;
-        }
-        .header a.active{
-            background-color:#8279a7;
-            color: black;
-        }
-        .header-right {
-            float: right;
-            padding: 30px 15px;
-        }
-        .header-right a {
-            font-weight: bold;
-            text-align: right;
-        }
-        .box .row.content {
-            flex: 1 1 auto;
-        }
-        .admin {
-            visibility: hidden;
-        }
         <?php if ($_SESSION['type'] == "2"):?>
             .admin {
                 visibility: visible;
             }
         <?php endif; ?>
-        nav {
-            float: left;
-            width: 330px;
-            background: #060412;
-            flex: 1 1 auto;
-            height: 100%
-        }
-        nav ul {
-            list-style-type: none;
-            padding: 12px;
-        }
-        nav ul li {
-            margin-bottom: 15px;
-            background-color: whitesmoke;
-            padding: 12px;
-            border-radius: 4px;
-        }
-        nav ul li a {
-            text-decoration: none;
-            color: #060412;
-            font-size: 23px;
-        }
-        nav ul li:hover {
-            background-color: #6e6782;
-        }
-        nav ul li a:hover {
-            color: white;
-        }
-        article {
-            float: left;
-            padding: 20px;
-            color: black;
-            flex: 1 1 auto;
-        }
-        article form label {
-            font-size: 15px;
-        }
-        article form input {
-            border: 2px solid #ccc;
-            display: inline-block;
-            padding: 12px 12px;
-            box-sizing: border-box;
-            border-radius: 4px;
-            margin: 5px 0px;
-            width: 220px;
-            height: 45px;
-        }
-        .grid {
-            display: grid;
-            grid-gap: 12px;
-            grid-template-columns: repeat(3, 1fr);
-        }
-        .grid div p select {
-            width: 220px;
-            height: 45px;    
-            border: 2px solid #ccc;
-            display: inline-block;
-            padding: 12px 12px;
-            box-sizing: border-box;
-            border-radius: 4px;
-            margin: 5px 0px;   
-        }
-        table, th, tr, td {
-            border: 2px solid #6e6782;
-            border-radius: 4px;
-            padding: 2px;
-            font-size: 18px;
-        }
-        table {
-            background-color: #13003f;
-        }
-        th, tr, td {
-            background-color: whitesmoke;
-        }
-        .box .row.footer {
-            flex: 0 0 25px;
-            background-color: #13003f;
-            padding: 5px 75px;
-            text-align: right;
-            color: #8279a7;
-            float: bottom;
-        }
-        @media screen and (max-width: 1060px) {
+        {}
+        @media screen and (max-width: 1120px){
             nav {
                 width: 100%;
                 height: auto;
@@ -167,7 +31,7 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
                 display: none;
             }
         }
-        @media screen and (max-width: 1100px) {
+        @media screen and (max-width: 1150px){
             img#logo {
                 display: none;
             }
@@ -177,7 +41,7 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
             }
         }
     </style>
-    <title>Search existing Incidents</title>
+    <title>Search Incidents</title>
 </head>
 <body style="background-color: whitesmoke;">
     <div class="box">
@@ -194,17 +58,18 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
             <nav>
                 <ul>
                     <li><a href="page_home.php">Log an incident</a></li>
-                    <li><a href="page_search_incident.php">Search existing incidents</a></li>
+                    <li><a href="page_search_incident.php">Incident database</a></li>
                     <li><a href="page_edit_incident.php">Edit existing incident</a></li>
                     <li><a href="page_people_db.php">People database</a></li>
+                    <li><a href="page_edit_person.php">Edit existing person</a></li>
                     <li><a href="page_vehicle_db.php">Vehicle database</a></li>
                     <li><a href="page_add_vehicle.php">Register a vehicle</a></li>
                     <li><a href="page_password_reset.php">Reset your password</a></li>
                 </ul>
             </nav>
             <article>
-                <h1>Search for an existing Incident:</h1>
-                <form action="/action_page.php" method="post" target="none">
+                <h1>Search for an Incident:</h1>
+                <form>
                     <div class="grid">
                         <div>
                             <p>
@@ -227,18 +92,20 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
                 include 'script_db_connect.php';
 
                 $conn = OpenCon();
-                $query = "SELECT incident.Incident_ID, person.Person_Name, vehicle.Vehicle_License, offence.Offence_Description, incident.Incident_Date from incident 
-                inner join offence on incident.Offence_ID = offence.Offence_ID 
-                inner join person on incident.Person_ID = person.Person_ID 
-                inner join vehicle on incident.Vehicle_ID = vehicle.Vehicle_ID";
+                $query = "SELECT Incident.Incident_ID, Person.Person_Name, Vehicle.Vehicle_License, Offence.Offence_Description, Incident_Points_Awarded, Incident_Fine_Amount, Incident.Incident_Date from Incident 
+                inner join Offence on Incident.Offence_ID = Offence.Offence_ID 
+                inner join Person on Incident.Person_ID = Person.Person_ID 
+                inner join Vehicle on Incident.Vehicle_ID = Vehicle.Vehicle_ID";
                 $result = mysqli_query($conn, $query)
                 ?>
                 <table id="resultsTable">
                     <tr>
-                        <th>Incident ID</th>
+                        <th>ID</th>
                         <th>Full Name</th>
-                        <th>Registration Number</th>
+                        <th>Registration</th>
                         <th>Offence Committed</th>
+                        <th>Points</th>
+                        <th>Fine</th>
                         <th>Date of incident</th>
                     </tr>
                     <?php while ($row1 = mysqli_fetch_array($result)):;?>
@@ -248,9 +115,14 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
                         <td><?php echo $row1[2];?></td>
                         <td><?php echo $row1[3];?></td>
                         <td><?php echo $row1[4];?></td>
+                        <td><?php echo $row1[5];?></td>
+                        <td><?php echo $row1[6];?></td>
                     </tr>
                     <?php endwhile;?>
                 </table>
+                <?php if (mysqli_num_rows($result) == 0):;?>
+                <p><?php echo "No results to display";?></p>
+                <?php endif;?>
             </article>
         </div>
         <div class="row footer">
@@ -261,26 +133,26 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
     </div>
 
 <script>
-function serveResults() {
-  var input, filter, table, tr, td, i, txtValue;
+function serveResults() { /// This function was found on StackExchange - I can't find the page but I don't want to be penalised for Plagiarism.
+  var input, filter, table, tr, td, i, txtValue; /// I changed a few elements obviously but the core of this function is not my own work.
   input = document.getElementById("searchField");
   filter = input.value.toUpperCase();
   table = document.getElementById("resultsTable");
   tr = table.getElementsByTagName("tr");
   searchCrit = document.getElementById("searchCrit")
-  if (searchCrit.value == "fullName") {
-      column = 0;
-  }
-  if (searchCrit.value == "regNumber") {
+  if (searchCrit.value == "fullName"){
       column = 1;
   }
-  for (i = 0; i < tr.length; i++) {
+  if (searchCrit.value == "regNumber"){
+      column = 2;
+  }
+  for (i = 0; i < tr.length; i++){
     td = tr[i].getElementsByTagName("td")[column];
     if (td) {
       txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      if (txtValue.toUpperCase().indexOf(filter) > -1){
         tr[i].style.display = "";
-      } else {
+      }else{
         tr[i].style.display = "none";
       }
     }       
