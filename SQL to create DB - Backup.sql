@@ -23,7 +23,7 @@ CREATE TABLE Incident (
 Incident_ID int(11) NOT NULL,
 Officer_ID int(11) NOT NULL,
 Person_ID int(11) NOT NULL,
-Vehicle_ID int(11) NOT NULL,
+Vehicle_ID int(11),
 Offence_ID int(11) NOT NULL,
 Incident_Fine_Amount int(11) DEFAULT 0,
 Incident_Points_Awarded int(11) DEFAULT 0,
