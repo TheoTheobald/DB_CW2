@@ -1,13 +1,29 @@
 <?php
 session_start();
+<<<<<<< HEAD
 if (isset($_POST['personId'])){
     if (empty($_POST['personId'])){
+=======
+if (isset($_POST['personId'])) {
+    function validate($data){
+        $data = trim($data);
+        $data = stripslashes($data);
+        $data = htmlspecialchars($data);
+        $data = str_replace('\'', '', $data);
+        return $data;
+    }
+    if (empty($_POST['personId'])) {
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
         header("Location: page_edit_person.php?error=Please enter a Person ID");
         $_SESSION['personId'] = NULL;
         $_SESSION['nameP'] = NULL;
         $_SESSION['licenseNumberP'] = NULL;
         $_SESSION['dobP'] = NULL;
         $_SESSION['addressP'] = NULL;
+<<<<<<< HEAD
+=======
+        CloseCon();
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
         exit();
     }else{
         include "script_db_connect.php";
@@ -39,8 +55,11 @@ if (isset($_POST['personId'])){
             exit();
         }
     }
+<<<<<<< HEAD
 }else{
     header("Location: page_edit_person.php");
     exit();
+=======
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
 }
 ?>

@@ -3,6 +3,7 @@ session_start();
 if (isset($_POST['carReg']) && isset($_POST['carType']) && isset($_POST['carCol']) && isset($_POST['licenseNumber'])  && isset($_POST['name']) && isset($_POST['address'])
     && isset($_POST['date'])){
     include "script_db_connect.php";
+<<<<<<< HEAD
     $conn = OpenCon();
 
     $carReg = validate($_POST['carReg']);
@@ -17,6 +18,30 @@ if (isset($_POST['carReg']) && isset($_POST['carType']) && isset($_POST['carCol'
     $_SESSION['nameV'] = $name;
     $address = validate($_POST['address']);
     $date = validate($_POST['date']);
+=======
+    if (isset($_POST['carReg']) && isset($_POST['carType']) && isset($_POST['carCol']) && isset($_POST['licenseNumber'])  && isset($_POST['name']) && isset($_POST['address'])
+     && isset($_POST['date'])){
+        function validate($data){
+            $data = trim($data);
+            $data = stripslashes($data);
+            $data = htmlspecialchars($data);
+            $data = str_replace('\'', '', $data);
+           return $data;
+        }
+        $conn = OpenCon();
+        $carReg = validate($_POST['carReg']);
+        $_SESSION['carRegV'] = $carReg;
+        $carType = validate($_POST['carType']);
+        $_SESSION['carTypeV'] = $carType;
+        $carCol = validate($_POST['carCol']);
+        $_SESSION['carColV'] = $carCol;
+        $licenseNumber = validate($_POST['licenseNumber']);
+        $_SESSION['licenseNumberV'] = $licenseNumber;
+        $name = validate($_POST['name']);
+        $_SESSION['nameV'] = $name;
+        $address = validate($_POST['address']);
+        $date = validate($_POST['date']);
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
 
     $checkPerson = "SELECT * from Person where Person_Name = '$name' and Person_License_No = '$licenseNumber'";
 
@@ -66,9 +91,24 @@ if (isset($_POST['carReg']) && isset($_POST['carType']) && isset($_POST['carCol'
         echo $carId;
         echo mysqli_num_rows($ownershipResult);
 
+<<<<<<< HEAD
         if (mysqli_num_rows($ownershipResult) === 0){
             $createOwnership = "INSERT into Ownership (Person_ID, Vehicle_ID) values ('$personId', '$carId')";
             mysqli_query($conn, $createOwnership);
+=======
+            if (mysqli_num_rows($ownershipResult) === 0){
+                $createOwnership = "INSERT into Ownership (Person_ID, Vehicle_ID) values ('$personId', '$carId')";
+                mysqli_query($conn, $createOwnership);
+            }
+            $_SESSION['carRegV'] = NULL;
+            $_SESSION['carTypeV'] = NULL;
+            $_SESSION['carColV'] = NULL;
+            $_SESSION['licenseNumberV'] = NULL;
+            $_SESSION['nameV'] = NULL;
+            header("Location: page_add_vehicle.php?error=Vehicle added to database");
+            CloseCon();
+            exit();
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
         }
         $_SESSION['carRegV'] = NULL;
         $_SESSION['carTypeV'] = NULL;

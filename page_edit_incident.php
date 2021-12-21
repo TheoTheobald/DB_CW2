@@ -5,6 +5,7 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
     header("Location: page_login.php?error=Please login to access protected areas");
 
 }
+<<<<<<< HEAD
 if (!isset($_SESSION['offNameI'])){
     $_SESSION['offNameI'] = NULL;
 }if (!isset($_SESSION['pointsI'])){
@@ -12,6 +13,15 @@ if (!isset($_SESSION['offNameI'])){
 }if (!isset($_SESSION['fineI'])){
     $_SESSION['fineI'] = NULL;
 }if (!isset($_SESSION['statementI'])){
+=======
+if (!isset($_SESSION['offNameI'])) {
+    $_SESSION['offNameI'] = NULL;
+} if (!isset($_SESSION['pointsI'])) {
+    $_SESSION['pointsI'] = NULL;
+} if (!isset($_SESSION['fineI'])){
+    $_SESSION['fineI'] = NULL;
+} if (!isset($_SESSION['statementI'])){
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
     $_SESSION['statementI'] = NULL;
 }?>
 <!DOCTYPE html>
@@ -32,8 +42,12 @@ if (!isset($_SESSION['offNameI'])){
                 visibility: visible;
             }
         <?php endif; ?>
+<<<<<<< HEAD
         {}
         @media screen and (max-width: 1130px){
+=======
+        @media screen and (max-width: 1130px) {
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
             img#logo {
                 display: none;
             }

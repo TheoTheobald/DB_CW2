@@ -18,8 +18,12 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
                 visibility: visible;
             }
         <?php endif; ?>
+<<<<<<< HEAD
         {}
         @media screen and (max-width: 1120px){
+=======
+        @media screen and (max-width: 1060px) {
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
             nav {
                 width: 100%;
                 height: auto;
@@ -68,7 +72,11 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
                 </ul>
             </nav>
             <article>
+<<<<<<< HEAD
                 <h1>Search for an Incident:</h1>
+=======
+                <h1>Search for an existing Incident:</h1>
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
                 <form>
                     <div class="grid">
                         <div>
@@ -92,10 +100,17 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
                 include 'script_db_connect.php';
 
                 $conn = OpenCon();
+<<<<<<< HEAD
                 $query = "SELECT Incident.Incident_ID, Person.Person_Name, Vehicle.Vehicle_License, Offence.Offence_Description, Incident_Points_Awarded, Incident_Fine_Amount, Incident.Incident_Date from Incident 
                 inner join Offence on Incident.Offence_ID = Offence.Offence_ID 
                 inner join Person on Incident.Person_ID = Person.Person_ID 
                 inner join Vehicle on Incident.Vehicle_ID = Vehicle.Vehicle_ID";
+=======
+                $query = "SELECT incident.Incident_ID, person.Person_Name, vehicle.Vehicle_License, offence.Offence_Description, Incident_Points_Awarded, Incident_Fine_Amount, incident.Incident_Date from incident 
+                inner join offence on incident.Offence_ID = offence.Offence_ID 
+                inner join person on incident.Person_ID = person.Person_ID 
+                inner join vehicle on incident.Vehicle_ID = vehicle.Vehicle_ID";
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
                 $result = mysqli_query($conn, $query)
                 ?>
                 <table id="resultsTable">
@@ -120,9 +135,15 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
                     </tr>
                     <?php endwhile;?>
                 </table>
+<<<<<<< HEAD
                 <?php if (mysqli_num_rows($result) == 0):;?>
                 <p><?php echo "No results to display";?></p>
                 <?php endif;?>
+=======
+                <?php while (mysqli_num_rows($result) == 0):;?>
+                <p><?php echo "Fuck this";?></p>
+                <?php endwhile;?>
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
             </article>
         </div>
         <div class="row footer">
@@ -140,8 +161,16 @@ function serveResults() { /// This function was found on StackExchange - I can't
   table = document.getElementById("resultsTable");
   tr = table.getElementsByTagName("tr");
   searchCrit = document.getElementById("searchCrit")
+<<<<<<< HEAD
   if (searchCrit.value == "fullName"){
       column = 1;
+=======
+  if (searchCrit.value == "fullName") {
+      column = 1;
+  }
+  if (searchCrit.value == "regNumber") {
+      column = 2;
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
   }
   if (searchCrit.value == "regNumber"){
       column = 2;

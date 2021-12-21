@@ -18,8 +18,12 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
                 visibility: visible;
             }
         <?php endif; ?>
+<<<<<<< HEAD
         {}
         @media screen and (max-width: 1130px){
+=======
+        @media screen and (max-width: 1130px) {
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
             img#logo {
                 display: none;
             }

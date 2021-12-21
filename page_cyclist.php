@@ -1,5 +1,6 @@
 <?php 
 session_start();
+<<<<<<< HEAD
 if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
 
     header("Location: page_login.php?error=Please login to access protected areas");
@@ -15,6 +16,23 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
 }if (!isset($_SESSION['dateC'])){
     $_SESSION['dateC'] = NULL;
 }if (!isset($_SESSION['statementC'])){
+=======
+if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
+
+    header("Location: page_login.php?error=Please login to access protected areas");
+
+} if (!isset($_SESSION['offNameC'])) {
+    $_SESSION['offNameC'] = NULL;
+} if (!isset($_SESSION['addressC'])) {
+    $_SESSION['addressC'] = NULL;
+} if (!isset($_SESSION['licenseNumberC'])) {
+    $_SESSION['licenseNumberC'] = NULL;
+} if (!isset($_SESSION['pointsC'])) {
+    $_SESSION['pointsC'] = NULL;
+} if (!isset($_SESSION['dateC'])) {
+    $_SESSION['dateC'] = NULL;
+} if (!isset($_SESSION['statementC'])) {
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
     $_SESSION['statementC'] = NULL;
 }?>
 <!DOCTYPE html>
@@ -35,8 +53,12 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
                 visibility: visible;
             }
         <?php endif; ?>
+<<<<<<< HEAD
         {}
         @media screen and (max-width: 1130px){
+=======
+        @media screen and (max-width: 1130px) {
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
             img#logo {
                 display: none;
             }
@@ -84,7 +106,11 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
             </nav>
             <article>
                 <h1>Log a new cycling Incident here:</h1>
+<<<<<<< HEAD
                 <form action="http://mersey.cs.nott.ac.uk/~psxtt1/script_cyclist.php" method="post">
+=======
+                <form action="//localhost/databasescw2/script_cyclist.php" method="post">
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
                     <div class="grid">
                         <div>
                             <p>
@@ -131,7 +157,11 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
                         <textarea class="noResize" id="statement" name="statement" placeholder="Spat in my cereal" cols="85" rows="12"><?php echo htmlspecialchars($_SESSION['statementC'])?></textarea>
                     </p>
                     <div>
+<<<<<<< HEAD
                         <?php if (isset($_GET['error'])){ ?>
+=======
+                        <?php if (isset($_GET['error'])) { ?>
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
                         <p class="error"><b><?php echo $_GET['error']; ?><b></p>
                         <?php } ?> 
                         <p>

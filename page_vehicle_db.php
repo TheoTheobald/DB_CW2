@@ -19,8 +19,12 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
                 visibility: visible;
             }
         <?php endif; ?>
+<<<<<<< HEAD
         {}
         @media screen and (max-width: 1020px){
+=======
+        @media screen and (max-width: 1060px) {
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
             nav {
                 width: 100%;
                 height: auto;
@@ -32,7 +36,11 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
                 display: none;
             }
         }
+<<<<<<< HEAD
         @media screen and (max-width: 1150px){
+=======
+        @media screen and (max-width: 1150px) {
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
             img#logo {
                 display: none;
             }

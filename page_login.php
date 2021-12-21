@@ -6,7 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="styles.css" rel="stylesheet">
     <style>
+<<<<<<< HEAD
         @media screen and (max-width: 1090px){
+=======
+        @media screen and (max-width: 1090px) {
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
             img#logo {
                 display: none;
             }

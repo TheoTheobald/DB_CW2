@@ -4,6 +4,7 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
 
     header("Location: page_login.php?error=Please login to access protected areas");
 
+<<<<<<< HEAD
 }if (!isset($_SESSION['offNameH'])){
     $_SESSION['offNameH'] = NULL;
 }if (!isset($_SESSION['carRegH'])){
@@ -15,6 +16,19 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
 }if (!isset($_SESSION['dateH'])){
     $_SESSION['dateH'] = NULL;
 }if (!isset($_SESSION['statementH'])){
+=======
+} if (!isset($_SESSION['offNameH'])) {
+    $_SESSION['offNameH'] = NULL;
+} if (!isset($_SESSION['carRegH'])) {
+    $_SESSION['carRegH'] = NULL;
+} if (!isset($_SESSION['licenseNumberH'])) {
+    $_SESSION['licenseNumberH'] = NULL;
+} if (!isset($_SESSION['pointsH'])) {
+    $_SESSION['pointsH'] = NULL;
+} if (!isset($_SESSION['dateH'])) {
+    $_SESSION['dateH'] = NULL;
+} if (!isset($_SESSION['statementH'])) {
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
     $_SESSION['statementH'] = NULL;
 }?>
 <!DOCTYPE html>
@@ -35,8 +49,12 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
                 visibility: visible;
             }
         <?php endif; ?>
+<<<<<<< HEAD
         {}
         @media screen and (max-width: 1130px){
+=======
+        @media screen and (max-width: 1130px) {
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
             img#logo {
                 display: none;
             }
@@ -89,13 +107,21 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
                         <div>
                             <p>
                                 <label for="offName">Offendee Name:</label><br>
+<<<<<<< HEAD
                                 <input type="text" id="offName" name="offName" placeholder="Paul Scholes.." value="<?php echo htmlspecialchars($_SESSION['offNameH'])?>">
+=======
+                                <input type="text" id="offName" name="offName" placeholder="John Doe" value="<?php echo htmlspecialchars($_SESSION['offNameH'])?>">
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
                             </p>                        
                         </div>
                         <div>
                             <p>
                                 <label for="carReg">Vehicle Registration:</label><br>
+<<<<<<< HEAD
                                 <input type="text" id="carReg" name="carReg" placeholder="AE15 K7Y.." value="<?php echo htmlspecialchars($_SESSION['carRegH'])?>">
+=======
+                                <input type="text" id="carReg" name="carReg" placeholder="AE15 K7Y" value="<?php echo htmlspecialchars($_SESSION['carRegH'])?>">
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
                             </p>
                         </div>
                         <div>
@@ -120,7 +146,11 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
                         <div>
                             <p>
                                 <label for="licenseNumber">License Number:</label><br>
+<<<<<<< HEAD
                                 <input type="text" id="licenseNumber" name="licenseNumber" placeholder="SCHOL27278320423.." value="<?php echo htmlspecialchars($_SESSION['licenseNumberH'])?>">
+=======
+                                <input type="text" id="licenseNumber" name="licenseNumber" placeholder="DOEJO27278320423" value="<?php echo htmlspecialchars($_SESSION['licenseNumberH'])?>">
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
                             </p>                            
                         </div>
                         <div>
@@ -138,7 +168,11 @@ if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
                     </div>
                     <p>
                         <label for="">Officer Statement:</label><br>
+<<<<<<< HEAD
                         <textarea class="noResize" id="statement" name="statement" placeholder="Spat in my cereal.." cols="85" rows="12"><?php echo htmlspecialchars($_SESSION['statementH'])?></textarea>
+=======
+                        <textarea class="noResize" id="statement" name="statement" placeholder="Spat in my cereal" cols="85" rows="12"><?php echo htmlspecialchars($_SESSION['statementH'])?></textarea>
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
                     </p>
                     <div>
                         <?php if (isset($_GET['error'])){ ?>

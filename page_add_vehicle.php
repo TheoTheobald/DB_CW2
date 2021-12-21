@@ -1,5 +1,6 @@
 <?php 
 session_start();
+<<<<<<< HEAD
 if (!isset($_SESSION['id']) || !isset($_SESSION['username'])){
     header("Location: page_login.php?error=Please login to access protected areas");
 }
@@ -12,6 +13,20 @@ if (!isset($_SESSION['carRegV'])){
 }if (!isset($_SESSION['licenseNumberV'])){
     $_SESSION['licenseNumberV'] = NULL;
 }if (!isset($_SESSION['nameV'])){
+=======
+if (!isset($_SESSION['id']) || !isset($_SESSION['username'])) {
+    header("Location: page_login.php?error=Please login to access protected areas");
+}
+if (!isset($_SESSION['carRegV'])) {
+    $_SESSION['carRegV'] = NULL;
+}if (!isset($_SESSION['carTypeV'])){
+    $_SESSION['carTypeV'] = NULL;
+}if (!isset($_SESSION['carColV'])) {
+    $_SESSION['carColV'] = NULL;
+}if (!isset($_SESSION['licenseNumberV'])) {
+    $_SESSION['licenseNumberV'] = NULL;
+}if (!isset($_SESSION['nameV'])) {
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
     $_SESSION['nameV'] = NULL;
 }?>
 <!DOCTYPE html>
@@ -32,8 +47,12 @@ if (!isset($_SESSION['carRegV'])){
                 visibility: visible;
             }
         <?php endif; ?>
+<<<<<<< HEAD
         {}
         @media screen and (max-width: 1130px){
+=======
+        @media screen and (max-width: 1130px) {
+>>>>>>> 8ee6a638c529b8586c36a09480b44f8ac1fbe76c
             img#logo {
                 display: none;
             }
